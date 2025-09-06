@@ -32,5 +32,10 @@ namespace Cumbre_Libros
         {
 
         }
+
+        private void PMenuLat_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
