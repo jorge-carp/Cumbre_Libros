@@ -36,7 +36,6 @@
             this.BVentas = new System.Windows.Forms.Button();
             this.BBackup = new System.Windows.Forms.Button();
             this.BUsuarios = new System.Windows.Forms.Button();
-            this.PContenedor = new System.Windows.Forms.Panel();
             this.PMenuLat.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,11 +54,11 @@
             this.PMenuLat.Name = "PMenuLat";
             this.PMenuLat.Size = new System.Drawing.Size(124, 561);
             this.PMenuLat.TabIndex = 0;
-            this.PMenuLat.Paint += new System.Windows.Forms.PaintEventHandler(this.PMenuLat_Paint);
             // 
             // BSalir
             // 
             this.BSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BSalir.Image = global::Cumbre_Libros.Properties.Resources.emergency_exit__1_;
             this.BSalir.Location = new System.Drawing.Point(0, 466);
             this.BSalir.Name = "BSalir";
             this.BSalir.Size = new System.Drawing.Size(127, 70);
@@ -69,6 +68,7 @@
             // BReportes
             // 
             this.BReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BReportes.Image = global::Cumbre_Libros.Properties.Resources.financial_statement;
             this.BReportes.Location = new System.Drawing.Point(0, 390);
             this.BReportes.Name = "BReportes";
             this.BReportes.Size = new System.Drawing.Size(124, 78);
@@ -79,6 +79,7 @@
             // BProductos
             // 
             this.BProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BProductos.Image = global::Cumbre_Libros.Properties.Resources.box__1_;
             this.BProductos.Location = new System.Drawing.Point(0, 308);
             this.BProductos.Name = "BProductos";
             this.BProductos.Size = new System.Drawing.Size(124, 85);
@@ -88,6 +89,7 @@
             // BVendedores
             // 
             this.BVendedores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BVendedores.Image = global::Cumbre_Libros.Properties.Resources.teamwork__1_;
             this.BVendedores.Location = new System.Drawing.Point(0, 154);
             this.BVendedores.Name = "BVendedores";
             this.BVendedores.Size = new System.Drawing.Size(124, 80);
@@ -97,6 +99,7 @@
             // BVentas
             // 
             this.BVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BVentas.Image = global::Cumbre_Libros.Properties.Resources.profit_up__1_;
             this.BVentas.Location = new System.Drawing.Point(0, 231);
             this.BVentas.Name = "BVentas";
             this.BVentas.Size = new System.Drawing.Size(124, 80);
@@ -106,6 +109,7 @@
             // BBackup
             // 
             this.BBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BBackup.Image = global::Cumbre_Libros.Properties.Resources.data_recovery__1_;
             this.BBackup.Location = new System.Drawing.Point(0, 78);
             this.BBackup.Name = "BBackup";
             this.BBackup.Size = new System.Drawing.Size(124, 82);
@@ -118,6 +122,7 @@
             // 
             this.BUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BUsuarios.ForeColor = System.Drawing.SystemColors.Control;
+            this.BUsuarios.Image = global::Cumbre_Libros.Properties.Resources.office_man__2_;
             this.BUsuarios.Location = new System.Drawing.Point(0, 0);
             this.BUsuarios.Name = "BUsuarios";
             this.BUsuarios.Size = new System.Drawing.Size(124, 81);
@@ -126,21 +131,12 @@
             this.BUsuarios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BUsuarios.UseVisualStyleBackColor = true;
             // 
-            // PContenedor
-            // 
-            this.PContenedor.BackColor = System.Drawing.Color.Transparent;
-            this.PContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PContenedor.Location = new System.Drawing.Point(124, 0);
-            this.PContenedor.Name = "PContenedor";
-            this.PContenedor.Size = new System.Drawing.Size(660, 561);
-            this.PContenedor.TabIndex = 1;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Cumbre_Libros.Properties.Resources.fondo_bordo;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.PContenedor);
             this.Controls.Add(this.PMenuLat);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -161,7 +157,6 @@
         private System.Windows.Forms.Button BVentas;
         private System.Windows.Forms.Button BBackup;
         private System.Windows.Forms.Button BUsuarios;
-        private System.Windows.Forms.Panel PContenedor;
     }
 }
 
