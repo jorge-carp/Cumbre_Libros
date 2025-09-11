@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cumbre_Libros", "Cumbre_Libros.csproj", "{13AC6658-E65F-4FAE-9CC8-141A1EAA775C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13AC6658-E65F-4FAE-9CC8-141A1EAA775C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13AC6658-E65F-4FAE-9CC8-141A1EAA775C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13AC6658-E65F-4FAE-9CC8-141A1EAA775C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13AC6658-E65F-4FAE-9CC8-141A1EAA775C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2AB631E5-0397-473B-AF4D-E7DBAA653F6D}
+	EndGlobalSection
+EndGlobal
