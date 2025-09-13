@@ -1,3 +1,6 @@
+using Cumbre_Libros.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace Cumbre_Libros
 {
     public partial class Login : Form
@@ -15,16 +18,36 @@ namespace Cumbre_Libros
 
             // vendedor: maria
             // contraseña: 1234
+ 
+            using (var db = new Models.CumbreContext())
+            {
+                Usuarios usuario = (from user in db.Usuarios
+                                    where user.NombreUsuario == tUsuario.Text
+                                    where user.Pass == tPassword.Text
+                                    select user).First();
 
-            if (tUsuario.Text == "martin" && tPassword.Text == "1234")
-            {
-                Administrador admin = new Administrador();
-                admin.ShowDialog();
-            }
-            else if (tUsuario.Text == "maria" && tPassword.Text == "1234")
-            {
-                Vendedor vendedor = new Vendedor();
-                vendedor.ShowDialog();
+                if (usuario != null)
+                {
+                    switch (usuario.IdRol)
+                    {
+                        case 1:
+                            Administrador admin = new Administrador();
+                            admin.ShowDialog();
+                            break;
+
+                        case 2:
+                            Vendedor vendedor = new Vendedor();
+                            vendedor.ShowDialog();
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o Contraseña Incorrectos Intente De Nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
