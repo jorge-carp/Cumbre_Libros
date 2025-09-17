@@ -31,27 +31,30 @@
             pLateral = new Panel();
             bLogout = new Button();
             bBackup = new Button();
-            bReporte_ventas = new Button();
-            bReportes_personal = new Button();
             bUsuarios = new Button();
-            bProductos = new Button();
             pCentral = new Panel();
+            lNombre = new Label();
+            lBienvenida = new Label();
+            pictureBox2 = new PictureBox();
+            pSuperior = new Panel();
+            pictureBox1 = new PictureBox();
             pLateral.SuspendLayout();
+            pCentral.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            pSuperior.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pLateral
             // 
-            pLateral.BackColor = Color.SkyBlue;
+            pLateral.BackColor = Color.SteelBlue;
             pLateral.Controls.Add(bLogout);
             pLateral.Controls.Add(bBackup);
-            pLateral.Controls.Add(bReporte_ventas);
-            pLateral.Controls.Add(bReportes_personal);
             pLateral.Controls.Add(bUsuarios);
-            pLateral.Controls.Add(bProductos);
-            pLateral.Location = new Point(14, 14);
+            pLateral.Location = new Point(0, 46);
             pLateral.Margin = new Padding(4, 3, 4, 3);
             pLateral.Name = "pLateral";
-            pLateral.Size = new Size(96, 620);
+            pLateral.Size = new Size(95, 600);
             pLateral.TabIndex = 0;
             // 
             // bLogout
@@ -60,12 +63,13 @@
             bLogout.FlatAppearance.BorderSize = 0;
             bLogout.FlatAppearance.MouseOverBackColor = Color.White;
             bLogout.FlatStyle = FlatStyle.Flat;
+            bLogout.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             bLogout.Image = Properties.Resources.icons8_logout_48;
             bLogout.ImageAlign = ContentAlignment.TopCenter;
-            bLogout.Location = new Point(4, 533);
+            bLogout.Location = new Point(5, 515);
             bLogout.Margin = new Padding(4, 3, 4, 3);
             bLogout.Name = "bLogout";
-            bLogout.Size = new Size(89, 83);
+            bLogout.Size = new Size(85, 80);
             bLogout.TabIndex = 5;
             bLogout.Text = "Salir";
             bLogout.TextAlign = ContentAlignment.BottomCenter;
@@ -80,12 +84,13 @@
             bBackup.FlatAppearance.BorderSize = 0;
             bBackup.FlatAppearance.MouseOverBackColor = Color.White;
             bBackup.FlatStyle = FlatStyle.Flat;
+            bBackup.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             bBackup.Image = Properties.Resources.icons8_database_48;
             bBackup.ImageAlign = ContentAlignment.TopCenter;
-            bBackup.Location = new Point(4, 387);
+            bBackup.Location = new Point(5, 91);
             bBackup.Margin = new Padding(4, 3, 4, 3);
             bBackup.Name = "bBackup";
-            bBackup.Size = new Size(89, 83);
+            bBackup.Size = new Size(85, 80);
             bBackup.TabIndex = 4;
             bBackup.Text = "Backup";
             bBackup.TextAlign = ContentAlignment.BottomCenter;
@@ -93,58 +98,19 @@
             bBackup.MouseEnter += bBackup_MouseEnter;
             bBackup.MouseLeave += bBackup_MouseLeave;
             // 
-            // bReporte_ventas
-            // 
-            bReporte_ventas.BackColor = Color.White;
-            bReporte_ventas.FlatAppearance.BorderColor = Color.White;
-            bReporte_ventas.FlatAppearance.BorderSize = 0;
-            bReporte_ventas.FlatAppearance.MouseOverBackColor = Color.White;
-            bReporte_ventas.FlatStyle = FlatStyle.Flat;
-            bReporte_ventas.Image = Properties.Resources.icons8_stocks_growth_48;
-            bReporte_ventas.ImageAlign = ContentAlignment.TopCenter;
-            bReporte_ventas.Location = new Point(4, 285);
-            bReporte_ventas.Margin = new Padding(4, 3, 4, 3);
-            bReporte_ventas.Name = "bReporte_ventas";
-            bReporte_ventas.Size = new Size(89, 95);
-            bReporte_ventas.TabIndex = 3;
-            bReporte_ventas.Text = "Reporte de ventas";
-            bReporte_ventas.TextAlign = ContentAlignment.BottomCenter;
-            bReporte_ventas.UseVisualStyleBackColor = false;
-            bReporte_ventas.MouseEnter += bReporte_ventas_MouseEnter;
-            bReporte_ventas.MouseLeave += bReporte_ventas_MouseLeave;
-            // 
-            // bReportes_personal
-            // 
-            bReportes_personal.BackColor = Color.White;
-            bReportes_personal.FlatAppearance.BorderColor = Color.White;
-            bReportes_personal.FlatAppearance.BorderSize = 0;
-            bReportes_personal.FlatAppearance.MouseOverBackColor = Color.White;
-            bReportes_personal.FlatStyle = FlatStyle.Flat;
-            bReportes_personal.Image = Properties.Resources.icons8_analytics_48;
-            bReportes_personal.ImageAlign = ContentAlignment.TopCenter;
-            bReportes_personal.Location = new Point(4, 183);
-            bReportes_personal.Margin = new Padding(4, 3, 4, 3);
-            bReportes_personal.Name = "bReportes_personal";
-            bReportes_personal.Size = new Size(89, 95);
-            bReportes_personal.TabIndex = 2;
-            bReportes_personal.Text = "Reporte de personal";
-            bReportes_personal.TextAlign = ContentAlignment.BottomCenter;
-            bReportes_personal.UseVisualStyleBackColor = false;
-            bReportes_personal.MouseEnter += bReportes_personal_MouseEnter;
-            bReportes_personal.MouseLeave += bReportes_personal_MouseLeave;
-            // 
             // bUsuarios
             // 
             bUsuarios.BackColor = Color.White;
             bUsuarios.FlatAppearance.BorderSize = 0;
             bUsuarios.FlatAppearance.MouseOverBackColor = Color.White;
             bUsuarios.FlatStyle = FlatStyle.Flat;
+            bUsuarios.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             bUsuarios.Image = Properties.Resources.icons8_account_male_48;
             bUsuarios.ImageAlign = ContentAlignment.TopCenter;
-            bUsuarios.Location = new Point(4, 93);
+            bUsuarios.Location = new Point(5, 5);
             bUsuarios.Margin = new Padding(4, 3, 4, 3);
             bUsuarios.Name = "bUsuarios";
-            bUsuarios.Size = new Size(89, 84);
+            bUsuarios.Size = new Size(85, 80);
             bUsuarios.TabIndex = 1;
             bUsuarios.Text = "Usuarios";
             bUsuarios.TextAlign = ContentAlignment.BottomCenter;
@@ -153,34 +119,66 @@
             bUsuarios.MouseEnter += bVendedores_MouseEnter;
             bUsuarios.MouseLeave += bVendedores_MouseLeave;
             // 
-            // bProductos
-            // 
-            bProductos.BackColor = Color.White;
-            bProductos.FlatAppearance.BorderColor = Color.White;
-            bProductos.FlatAppearance.BorderSize = 0;
-            bProductos.FlatAppearance.MouseOverBackColor = Color.White;
-            bProductos.FlatStyle = FlatStyle.Flat;
-            bProductos.Image = Properties.Resources.icons8_book_48;
-            bProductos.ImageAlign = ContentAlignment.TopCenter;
-            bProductos.Location = new Point(4, 3);
-            bProductos.Margin = new Padding(4, 3, 4, 3);
-            bProductos.Name = "bProductos";
-            bProductos.Size = new Size(89, 83);
-            bProductos.TabIndex = 0;
-            bProductos.Text = "Productos";
-            bProductos.TextAlign = ContentAlignment.BottomCenter;
-            bProductos.UseVisualStyleBackColor = false;
-            bProductos.MouseEnter += bProductos_MouseEnter;
-            bProductos.MouseLeave += bProductos_MouseLeave;
-            // 
             // pCentral
             // 
             pCentral.BackColor = Color.WhiteSmoke;
-            pCentral.Location = new Point(117, 17);
+            pCentral.Controls.Add(lNombre);
+            pCentral.Controls.Add(lBienvenida);
+            pCentral.Controls.Add(pictureBox2);
+            pCentral.Location = new Point(95, 46);
             pCentral.Margin = new Padding(4, 3, 4, 3);
             pCentral.Name = "pCentral";
-            pCentral.Size = new Size(784, 613);
+            pCentral.Size = new Size(820, 600);
             pCentral.TabIndex = 1;
+            // 
+            // lNombre
+            // 
+            lNombre.AutoSize = true;
+            lNombre.BackColor = Color.WhiteSmoke;
+            lNombre.Font = new Font("Segoe Script", 27.75F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            lNombre.ForeColor = Color.DodgerBlue;
+            lNombre.Location = new Point(433, 290);
+            lNombre.Name = "lNombre";
+            lNombre.Size = new Size(0, 58);
+            lNombre.TabIndex = 2;
+            // 
+            // lBienvenida
+            // 
+            lBienvenida.AutoSize = true;
+            lBienvenida.Font = new Font("Segoe Script", 27.75F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            lBienvenida.Location = new Point(176, 290);
+            lBienvenida.Name = "lBienvenida";
+            lBienvenida.Size = new Size(251, 58);
+            lBienvenida.TabIndex = 1;
+            lBienvenida.Text = "Bienvenido";
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.logo_upscaled;
+            pictureBox2.Location = new Point(223, 147);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(350, 127);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 0;
+            pictureBox2.TabStop = false;
+            // 
+            // pSuperior
+            // 
+            pSuperior.BackColor = Color.SteelBlue;
+            pSuperior.Controls.Add(pictureBox1);
+            pSuperior.Location = new Point(0, 0);
+            pSuperior.Name = "pSuperior";
+            pSuperior.Size = new Size(915, 45);
+            pSuperior.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.logo_2;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(175, 45);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // Administrador
             // 
@@ -188,6 +186,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.CadetBlue;
             ClientSize = new Size(915, 647);
+            Controls.Add(pSuperior);
             Controls.Add(pCentral);
             Controls.Add(pLateral);
             Margin = new Padding(4, 3, 4, 3);
@@ -195,6 +194,11 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cumbre Libros";
             pLateral.ResumeLayout(false);
+            pCentral.ResumeLayout(false);
+            pCentral.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            pSuperior.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
 
         }
@@ -202,12 +206,14 @@
         #endregion
 
         private System.Windows.Forms.Panel pLateral;
-        private System.Windows.Forms.Button bProductos;
-        private System.Windows.Forms.Button bUsuarios;
-        private System.Windows.Forms.Button bReportes_personal;
-        private System.Windows.Forms.Button bReporte_ventas;
         private System.Windows.Forms.Button bBackup;
         private System.Windows.Forms.Button bLogout;
         private System.Windows.Forms.Panel pCentral;
+        private Panel pSuperior;
+        private PictureBox pictureBox1;
+        private Button bUsuarios;
+        private PictureBox pictureBox2;
+        private Label lNombre;
+        private Label lBienvenida;
     }
 }

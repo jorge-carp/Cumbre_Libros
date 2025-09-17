@@ -12,9 +12,11 @@ namespace Cumbre_Libros
 {
     public partial class Administrador : Form
     {
-        public Administrador()
+        public Administrador(string nombre)
         {
             InitializeComponent();
+
+            lNombre.Text = nombre;
         }
 
         private void bVendedores_MouseLeave(object sender, EventArgs e)
@@ -25,36 +27,6 @@ namespace Cumbre_Libros
         private void bVendedores_MouseEnter(object sender, EventArgs e)
         {
             bUsuarios.Image = Properties.Resources.icons8_account_male;
-        }
-
-        private void bProductos_MouseEnter(object sender, EventArgs e)
-        {
-            bProductos.Image = Properties.Resources.icons8_book;
-        }
-
-        private void bProductos_MouseLeave(object sender, EventArgs e)
-        {
-            bProductos.Image = Properties.Resources.icons8_book_48;
-        }
-
-        private void bReportes_personal_MouseEnter(object sender, EventArgs e)
-        {
-            bReportes_personal.Image = Properties.Resources.icons8_analytics;
-        }
-
-        private void bReportes_personal_MouseLeave(object sender, EventArgs e)
-        {
-            bReportes_personal.Image = Properties.Resources.icons8_analytics_48;
-        }
-
-        private void bReporte_ventas_MouseEnter(object sender, EventArgs e)
-        {
-            bReporte_ventas.Image = Properties.Resources.icons8_stocks_growth;
-        }
-
-        private void bReporte_ventas_MouseLeave(object sender, EventArgs e)
-        {
-            bReporte_ventas.Image = Properties.Resources.icons8_stocks_growth_48;
         }
 
         private void bBackup_MouseEnter(object sender, EventArgs e)
@@ -85,7 +57,7 @@ namespace Cumbre_Libros
         private void bUsuarios_Click(object sender, EventArgs e)
         {
             var panel_usuarios = new ABM_Usuarios { Dock = DockStyle.Fill };
-            
+
             pCentral.Controls.Clear();
             pCentral.Controls.Add(panel_usuarios);
         }

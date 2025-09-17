@@ -28,10 +28,14 @@ namespace Cumbre_Libros
 
                 if (usuario != null)
                 {
+                    this.Hide();
+                    tUsuario.Text = "";
+                    tPassword.Text = "";
+
                     switch (usuario.IdRol)
                     {
                         case 1:
-                            Administrador admin = new Administrador();
+                            Administrador admin = new Administrador(usuario.Nombre);
                             admin.ShowDialog();
                             break;
 
@@ -43,6 +47,8 @@ namespace Cumbre_Libros
                         default:
                             break;
                     }
+
+                    this.Show();
                 }
                 else
                 {
