@@ -19,12 +19,12 @@ namespace Cumbre_Libros
 
         private void bVendedores_MouseLeave(object sender, EventArgs e)
         {
-            bVendedores.Image = Properties.Resources.icons8_account_male_48;
+            bUsuarios.Image = Properties.Resources.icons8_account_male_48;
         }
 
         private void bVendedores_MouseEnter(object sender, EventArgs e)
         {
-            bVendedores.Image = Properties.Resources.icons8_account_male;
+            bUsuarios.Image = Properties.Resources.icons8_account_male;
         }
 
         private void bProductos_MouseEnter(object sender, EventArgs e)
@@ -80,6 +80,14 @@ namespace Cumbre_Libros
         private void bLogout_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void bUsuarios_Click(object sender, EventArgs e)
+        {
+            var panel_usuarios = new ABM_Usuarios { Dock = DockStyle.Fill };
+            
+            pCentral.Controls.Clear();
+            pCentral.Controls.Add(panel_usuarios);
         }
     }
 }

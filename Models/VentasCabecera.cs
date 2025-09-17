@@ -15,7 +15,7 @@ public partial class VentasCabecera
 
     public double? TotalVenta { get; set; }
 
-    public virtual MetodosPagos? IdMetodoPagoNavigation { get; set; }
+    public virtual MetodosPago? IdMetodoPagoNavigation { get; set; }
 
     public virtual Usuarios? IdUsuarioNavigation { get; set; }
 

@@ -33,7 +33,7 @@
             bBackup = new Button();
             bReporte_ventas = new Button();
             bReportes_personal = new Button();
-            bVendedores = new Button();
+            bUsuarios = new Button();
             bProductos = new Button();
             pCentral = new Panel();
             pLateral.SuspendLayout();
@@ -46,7 +46,7 @@
             pLateral.Controls.Add(bBackup);
             pLateral.Controls.Add(bReporte_ventas);
             pLateral.Controls.Add(bReportes_personal);
-            pLateral.Controls.Add(bVendedores);
+            pLateral.Controls.Add(bUsuarios);
             pLateral.Controls.Add(bProductos);
             pLateral.Location = new Point(14, 14);
             pLateral.Margin = new Padding(4, 3, 4, 3);
@@ -133,24 +133,25 @@
             bReportes_personal.MouseEnter += bReportes_personal_MouseEnter;
             bReportes_personal.MouseLeave += bReportes_personal_MouseLeave;
             // 
-            // bVendedores
+            // bUsuarios
             // 
-            bVendedores.BackColor = Color.White;
-            bVendedores.FlatAppearance.BorderSize = 0;
-            bVendedores.FlatAppearance.MouseOverBackColor = Color.White;
-            bVendedores.FlatStyle = FlatStyle.Flat;
-            bVendedores.Image = Properties.Resources.icons8_account_male_48;
-            bVendedores.ImageAlign = ContentAlignment.TopCenter;
-            bVendedores.Location = new Point(4, 93);
-            bVendedores.Margin = new Padding(4, 3, 4, 3);
-            bVendedores.Name = "bVendedores";
-            bVendedores.Size = new Size(89, 83);
-            bVendedores.TabIndex = 1;
-            bVendedores.Text = "Vendedores";
-            bVendedores.TextAlign = ContentAlignment.BottomCenter;
-            bVendedores.UseVisualStyleBackColor = false;
-            bVendedores.MouseEnter += bVendedores_MouseEnter;
-            bVendedores.MouseLeave += bVendedores_MouseLeave;
+            bUsuarios.BackColor = Color.White;
+            bUsuarios.FlatAppearance.BorderSize = 0;
+            bUsuarios.FlatAppearance.MouseOverBackColor = Color.White;
+            bUsuarios.FlatStyle = FlatStyle.Flat;
+            bUsuarios.Image = Properties.Resources.icons8_account_male_48;
+            bUsuarios.ImageAlign = ContentAlignment.TopCenter;
+            bUsuarios.Location = new Point(4, 93);
+            bUsuarios.Margin = new Padding(4, 3, 4, 3);
+            bUsuarios.Name = "bUsuarios";
+            bUsuarios.Size = new Size(89, 84);
+            bUsuarios.TabIndex = 1;
+            bUsuarios.Text = "Usuarios";
+            bUsuarios.TextAlign = ContentAlignment.BottomCenter;
+            bUsuarios.UseVisualStyleBackColor = false;
+            bUsuarios.Click += bUsuarios_Click;
+            bUsuarios.MouseEnter += bVendedores_MouseEnter;
+            bUsuarios.MouseLeave += bVendedores_MouseLeave;
             // 
             // bProductos
             // 
@@ -202,7 +203,7 @@
 
         private System.Windows.Forms.Panel pLateral;
         private System.Windows.Forms.Button bProductos;
-        private System.Windows.Forms.Button bVendedores;
+        private System.Windows.Forms.Button bUsuarios;
         private System.Windows.Forms.Button bReportes_personal;
         private System.Windows.Forms.Button bReporte_ventas;
         private System.Windows.Forms.Button bBackup;

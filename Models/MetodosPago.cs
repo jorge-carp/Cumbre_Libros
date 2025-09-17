@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cumbre_Libros.Models;
 
-public partial class MetodosPagos
+public partial class MetodosPago
 {
     public int Id { get; set; }
 

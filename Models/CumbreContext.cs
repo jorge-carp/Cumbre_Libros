@@ -23,7 +23,7 @@ public partial class CumbreContext : DbContext
 
     public virtual DbSet<Libros> Libros { get; set; }
 
-    public virtual DbSet<MetodosPagos> MetodosPagos { get; set; }
+    public virtual DbSet<MetodosPago> MetodosPagos { get; set; }
 
     public virtual DbSet<Paises> Paises { get; set; }
 
@@ -102,7 +102,7 @@ public partial class CumbreContext : DbContext
             entity.HasOne(d => d.IdEditorialNavigation).WithMany(p => p.Libros).HasForeignKey(d => d.IdEditorial);
         });
 
-        modelBuilder.Entity<MetodosPagos>(entity =>
+        modelBuilder.Entity<MetodosPago>(entity =>
         {
             entity.ToTable("Metodos_pago");
 
@@ -136,8 +136,13 @@ public partial class CumbreContext : DbContext
 
         modelBuilder.Entity<Usuarios>(entity =>
         {
-            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.HasIndex(e => e.NombreUsuario, "IX_Usuarios_nombre_usuario").IsUnique();
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("ID");
             entity.Property(e => e.Apellido).HasColumnName("apellido");
+            entity.Property(e => e.Dni).HasColumnName("DNI");
             entity.Property(e => e.Eliminado)
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
@@ -149,7 +154,9 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Pass).HasColumnName("pass");
             entity.Property(e => e.Telefono).HasColumnName("telefono");
 
-            entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuarios).HasForeignKey(d => d.IdRol);
+            entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.IdRol)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<VentasCabecera>(entity =>

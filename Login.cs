@@ -18,8 +18,8 @@ namespace Cumbre_Libros
 
             // vendedor: maria
             // contraseña: 1234
- 
-            using (var db = new Models.CumbreContext())
+
+            using (var db = new CumbreContext())
             {
                 Usuarios usuario = (from user in db.Usuarios
                                     where user.NombreUsuario == tUsuario.Text
