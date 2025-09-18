@@ -116,8 +116,8 @@
             bUsuarios.TextAlign = ContentAlignment.BottomCenter;
             bUsuarios.UseVisualStyleBackColor = false;
             bUsuarios.Click += bUsuarios_Click;
-            bUsuarios.MouseEnter += bVendedores_MouseEnter;
-            bUsuarios.MouseLeave += bVendedores_MouseLeave;
+            bUsuarios.MouseEnter += bUsuarios_MouseEnter;
+            bUsuarios.MouseLeave += bUsuarios_MouseLeave;
             // 
             // pCentral
             // 

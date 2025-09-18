@@ -1,6 +1,6 @@
 ﻿namespace Cumbre_Libros
 {
-    partial class Vendedor
+    partial class Gerente
     {
         /// <summary>
         /// Required designer variable.
@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             pLateral = new Panel();
+            bVentas = new Button();
             bLogout = new Button();
-            bReporte = new Button();
-            bCaja = new Button();
+            bProductos = new Button();
+            bVendedores = new Button();
             pCentral = new Panel();
             lNombre = new Label();
             lBienvenida = new Label();
@@ -48,14 +49,36 @@
             // pLateral
             // 
             pLateral.BackColor = Color.SteelBlue;
+            pLateral.Controls.Add(bVentas);
             pLateral.Controls.Add(bLogout);
-            pLateral.Controls.Add(bReporte);
-            pLateral.Controls.Add(bCaja);
+            pLateral.Controls.Add(bProductos);
+            pLateral.Controls.Add(bVendedores);
             pLateral.Location = new Point(0, 46);
             pLateral.Margin = new Padding(4, 3, 4, 3);
             pLateral.Name = "pLateral";
             pLateral.Size = new Size(95, 600);
             pLateral.TabIndex = 0;
+            // 
+            // bVentas
+            // 
+            bVentas.BackColor = Color.White;
+            bVentas.FlatAppearance.BorderSize = 0;
+            bVentas.FlatAppearance.MouseOverBackColor = Color.White;
+            bVentas.FlatStyle = FlatStyle.Flat;
+            bVentas.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bVentas.Image = Properties.Resources.icons8_stocks_growth_48;
+            bVentas.ImageAlign = ContentAlignment.TopCenter;
+            bVentas.Location = new Point(5, 177);
+            bVentas.Margin = new Padding(4, 3, 4, 3);
+            bVentas.Name = "bVentas";
+            bVentas.Size = new Size(85, 90);
+            bVentas.TabIndex = 6;
+            bVentas.Text = "Reporte de Ventas";
+            bVentas.TextAlign = ContentAlignment.BottomCenter;
+            bVentas.UseVisualStyleBackColor = false;
+            bVentas.Click += bVentas_Click;
+            bVentas.MouseEnter += bVentas_MouseEnter;
+            bVentas.MouseLeave += bVentas_MouseLeave;
             // 
             // bLogout
             // 
@@ -78,47 +101,47 @@
             bLogout.MouseEnter += bLogout_MouseEnter;
             bLogout.MouseLeave += bLogout_MouseLeave;
             // 
-            // bReporte
+            // bProductos
             // 
-            bReporte.BackColor = Color.White;
-            bReporte.FlatAppearance.BorderSize = 0;
-            bReporte.FlatAppearance.MouseOverBackColor = Color.White;
-            bReporte.FlatStyle = FlatStyle.Flat;
-            bReporte.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bReporte.Image = Properties.Resources.icons8_stocks_growth_48;
-            bReporte.ImageAlign = ContentAlignment.TopCenter;
-            bReporte.Location = new Point(5, 91);
-            bReporte.Margin = new Padding(4, 3, 4, 3);
-            bReporte.Name = "bReporte";
-            bReporte.Size = new Size(85, 90);
-            bReporte.TabIndex = 4;
-            bReporte.Text = "Reporte de Ventas";
-            bReporte.TextAlign = ContentAlignment.BottomCenter;
-            bReporte.UseVisualStyleBackColor = false;
-            bReporte.Click += bReporte_Click;
-            bReporte.MouseEnter += bReporte_MouseEnter;
-            bReporte.MouseLeave += bReporte_MouseLeave;
+            bProductos.BackColor = Color.White;
+            bProductos.FlatAppearance.BorderSize = 0;
+            bProductos.FlatAppearance.MouseOverBackColor = Color.White;
+            bProductos.FlatStyle = FlatStyle.Flat;
+            bProductos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bProductos.Image = Properties.Resources.icons8_book_48;
+            bProductos.ImageAlign = ContentAlignment.TopCenter;
+            bProductos.Location = new Point(5, 91);
+            bProductos.Margin = new Padding(4, 3, 4, 3);
+            bProductos.Name = "bProductos";
+            bProductos.Size = new Size(85, 80);
+            bProductos.TabIndex = 4;
+            bProductos.Text = "Productos";
+            bProductos.TextAlign = ContentAlignment.BottomCenter;
+            bProductos.UseVisualStyleBackColor = false;
+            bProductos.Click += bProductos_Click;
+            bProductos.MouseEnter += bProductos_MouseEnter;
+            bProductos.MouseLeave += bProductos_MouseLeave;
             // 
-            // bCaja
+            // bVendedores
             // 
-            bCaja.BackColor = Color.White;
-            bCaja.FlatAppearance.BorderSize = 0;
-            bCaja.FlatAppearance.MouseOverBackColor = Color.White;
-            bCaja.FlatStyle = FlatStyle.Flat;
-            bCaja.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bCaja.Image = Properties.Resources.icons8_estimate_48;
-            bCaja.ImageAlign = ContentAlignment.TopCenter;
-            bCaja.Location = new Point(5, 5);
-            bCaja.Margin = new Padding(4, 3, 4, 3);
-            bCaja.Name = "bCaja";
-            bCaja.Size = new Size(85, 80);
-            bCaja.TabIndex = 1;
-            bCaja.Text = "Caja";
-            bCaja.TextAlign = ContentAlignment.BottomCenter;
-            bCaja.UseVisualStyleBackColor = false;
-            bCaja.Click += bCaja_Click;
-            bCaja.MouseEnter += bCaja_MouseEnter;
-            bCaja.MouseLeave += bCaja_MouseLeave;
+            bVendedores.BackColor = Color.White;
+            bVendedores.FlatAppearance.BorderSize = 0;
+            bVendedores.FlatAppearance.MouseOverBackColor = Color.White;
+            bVendedores.FlatStyle = FlatStyle.Flat;
+            bVendedores.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bVendedores.Image = Properties.Resources.icons8_account_male_48;
+            bVendedores.ImageAlign = ContentAlignment.TopCenter;
+            bVendedores.Location = new Point(5, 5);
+            bVendedores.Margin = new Padding(4, 3, 4, 3);
+            bVendedores.Name = "bVendedores";
+            bVendedores.Size = new Size(86, 80);
+            bVendedores.TabIndex = 1;
+            bVendedores.Text = "Vendedores";
+            bVendedores.TextAlign = ContentAlignment.BottomCenter;
+            bVendedores.UseVisualStyleBackColor = false;
+            bVendedores.Click += bVendedores_Click;
+            bVendedores.MouseEnter += bVendedores_MouseEnter;
+            bVendedores.MouseLeave += bVendedores_MouseLeave;
             // 
             // pCentral
             // 
@@ -181,7 +204,7 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // Vendedor
+            // Gerente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -191,7 +214,7 @@
             Controls.Add(pCentral);
             Controls.Add(pLateral);
             Margin = new Padding(4, 3, 4, 3);
-            Name = "Vendedor";
+            Name = "Gerente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cumbre Libros";
             pLateral.ResumeLayout(false);
@@ -207,14 +230,15 @@
         #endregion
 
         private System.Windows.Forms.Panel pLateral;
-        private System.Windows.Forms.Button bReporte;
+        private System.Windows.Forms.Button bProductos;
         private System.Windows.Forms.Button bLogout;
         private System.Windows.Forms.Panel pCentral;
         private Panel pSuperior;
         private PictureBox pictureBox1;
-        private Button bCaja;
+        private Button bVendedores;
         private PictureBox pictureBox2;
         private Label lNombre;
         private Label lBienvenida;
+        private Button bVentas;
     }
 }

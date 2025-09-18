@@ -16,6 +16,9 @@ namespace Cumbre_Libros
             // administrador: martin
             // contraseña: 1234
 
+            // gerente: jorge
+            // contraseña: 1234
+
             // vendedor: maria
             // contraseña: 1234
 
@@ -40,7 +43,12 @@ namespace Cumbre_Libros
                             break;
 
                         case 2:
-                            Vendedor vendedor = new Vendedor();
+                            Gerente gerente = new Gerente(usuario.Nombre);
+                            gerente.ShowDialog();
+                            break;
+
+                        case 3:
+                            Vendedor vendedor = new Vendedor(usuario.Nombre);
                             vendedor.ShowDialog();
                             break;
 

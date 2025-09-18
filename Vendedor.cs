@@ -12,19 +12,11 @@ namespace Cumbre_Libros
 {
     public partial class Vendedor : Form
     {
-        public Vendedor()
+        public Vendedor(string nombre)
         {
             InitializeComponent();
-        }
 
-        private void bReporte_ventas_MouseEnter(object sender, EventArgs e)
-        {
-            bReporte_ventas.Image = Properties.Resources.icons8_stocks_growth;
-        }
-
-        private void bReporte_ventas_MouseLeave(object sender, EventArgs e)
-        {
-            bReporte_ventas.Image = Properties.Resources.icons8_stocks_growth_48;
+            lNombre.Text = nombre;
         }
 
         private void bLogout_MouseEnter(object sender, EventArgs e)
@@ -37,19 +29,39 @@ namespace Cumbre_Libros
             bLogout.Image = Properties.Resources.icons8_logout_48;
         }
 
-        private void bVenta_MouseEnter(object sender, EventArgs e)
-        {
-            bVenta.Image = Properties.Resources.icons8_estimate;
-        }
-
-        private void bVenta_MouseLeave(object sender, EventArgs e)
-        {
-            bVenta.Image = Properties.Resources.icons8_estimate_48;
-        }
-
         private void bLogout_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void bCaja_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bCaja_MouseEnter(object sender, EventArgs e)
+        {
+            bCaja.Image = Properties.Resources.icons8_estimate;
+        }
+
+        private void bCaja_MouseLeave(object sender, EventArgs e)
+        {
+            bCaja.Image = Properties.Resources.icons8_estimate_48;
+        }
+
+        private void bReporte_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bReporte_MouseEnter(object sender, EventArgs e)
+        {
+            bReporte.Image = Properties.Resources.icons8_stocks_growth;
+        }
+
+        private void bReporte_MouseLeave(object sender, EventArgs e)
+        {
+            bReporte.Image = Properties.Resources.icons8_stocks_growth_48;
         }
     }
 }

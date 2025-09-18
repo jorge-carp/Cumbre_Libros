@@ -19,16 +19,6 @@ namespace Cumbre_Libros
             lNombre.Text = nombre;
         }
 
-        private void bVendedores_MouseLeave(object sender, EventArgs e)
-        {
-            bUsuarios.Image = Properties.Resources.icons8_account_male_48;
-        }
-
-        private void bVendedores_MouseEnter(object sender, EventArgs e)
-        {
-            bUsuarios.Image = Properties.Resources.icons8_account_male;
-        }
-
         private void bBackup_MouseEnter(object sender, EventArgs e)
         {
             bBackup.Image = Properties.Resources.icons8_database;
@@ -60,6 +50,16 @@ namespace Cumbre_Libros
 
             pCentral.Controls.Clear();
             pCentral.Controls.Add(panel_usuarios);
+        }
+
+        private void bUsuarios_MouseEnter(object sender, EventArgs e)
+        {
+            bUsuarios.Image = Properties.Resources.icons8_account_male;
+        }
+
+        private void bUsuarios_MouseLeave(object sender, EventArgs e)
+        {
+            bUsuarios.Image = Properties.Resources.icons8_account_male_48;
         }
     }
 }
