@@ -22,47 +22,58 @@ namespace Cumbre_Libros
             // vendedor: maria
             // contraseña: 1234
 
-            using (var db = new CumbreContext())
+            using var db = new CumbreContext();
+
+            var user = db.Usuarios.SingleOrDefault(u => u.NombreUsuario == tUsuario.Text);
+
+            if (user != null && PasswordHelper.VerifyPassword(tPassword.Text, user.Pass))
             {
-                Usuario usuario = (from user in db.Usuarios
-                                    where user.NombreUsuario == tUsuario.Text
-                                    where user.Pass == tPassword.Text
-                                    select user).FirstOrDefault();
+                this.Hide();
+                tUsuario.Text = "";
+                tPassword.Text = "";
 
-                if (usuario != null)
+                switch (user.IdRol)
                 {
-                    this.Hide();
-                    tUsuario.Text = "";
-                    tPassword.Text = "";
+                    case 1:
+                        Administrador admin = new Administrador(user.Nombre);
+                        admin.ShowDialog();
+                        break;
 
-                    switch (usuario.IdRol)
-                    {
-                        case 1:
-                            Administrador admin = new Administrador(usuario.Nombre);
-                            admin.ShowDialog();
-                            break;
+                    case 2:
+                        Gerente gerente = new Gerente(user.Nombre);
+                        gerente.ShowDialog();
+                        break;
 
-                        case 2:
-                            Gerente gerente = new Gerente(usuario.Nombre);
-                            gerente.ShowDialog();
-                            break;
+                    case 3:
+                        Vendedor vendedor = new Vendedor(user.Nombre);
+                        vendedor.ShowDialog();
+                        break;
 
-                        case 3:
-                            Vendedor vendedor = new Vendedor(usuario.Nombre);
-                            vendedor.ShowDialog();
-                            break;
-
-                        default:
-                            break;
-                    }
-
-                    this.Show();
+                    default:
+                        break;
                 }
-                else
-                {
-                    MessageBox.Show("Usuario o Contraseña Incorrectos Intente De Nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                this.Show();
             }
+            else
+                MessageBox.Show("Usuario o Contraseña Incorrectos Intente De Nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                tPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tPassword.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
