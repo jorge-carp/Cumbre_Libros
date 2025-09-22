@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cumbre_Libros.Models;
 
-public partial class Usuarios
+public partial class Usuario
 {
     public int Id { get; set; }
 
@@ -23,9 +23,12 @@ public partial class Usuarios
 
     public string Pass { get; set; } = null!;
 
-    public bool? Eliminado { get; set; }
+    [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+    public string PlainPassword { get; set; }
 
-    public virtual Roles IdRolNavigation { get; set; } = null!;
+    public bool Eliminado { get; set; } = false;
+
+    public virtual Role IdRolNavigation { get; set; } = null!;
 
     public virtual ICollection<VentasCabecera> VentasCabeceras { get; set; } = new List<VentasCabecera>();
 }

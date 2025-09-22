@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cumbre_Libros.Models;
 
-public partial class Roles
+public partial class Role
 {
     public int Id { get; set; }
 
@@ -11,5 +11,5 @@ public partial class Roles
 
     public bool? Eliminado { get; set; }
 
-    public virtual ICollection<Usuarios> Usuarios { get; set; } = new List<Usuarios>();
+    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

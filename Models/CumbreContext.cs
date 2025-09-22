@@ -15,21 +15,50 @@ public partial class CumbreContext : DbContext
     {
     }
 
-    public virtual DbSet<Autores> Autores { get; set; }
+    public override int SaveChanges()
+    {
+        HashPasswords();
+        return base.SaveChanges();
+    }
 
-    public virtual DbSet<Categorias> Categorias { get; set; }
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        HashPasswords();
+        return await base.SaveChangesAsync(cancellationToken);
+    }
 
-    public virtual DbSet<Editoriales> Editoriales { get; set; }
+    private void HashPasswords()
+    {
+        foreach (var entry in ChangeTracker.Entries<Usuario>())
+        {
+            if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
+            {
+                var user = entry.Entity;
 
-    public virtual DbSet<Libros> Libros { get; set; }
+                if (!string.IsNullOrEmpty(user.PlainPassword))
+                {
+                    user.Pass = PasswordHelper.HashPassword(user.PlainPassword);
+                    user.PlainPassword = null;
+                }
+            }
+        }
+    }
+
+    public virtual DbSet<Autore> Autores { get; set; }
+
+    public virtual DbSet<Categoria> Categorias { get; set; }
+
+    public virtual DbSet<Editoriale> Editoriales { get; set; }
+
+    public virtual DbSet<Libro> Libros { get; set; }
 
     public virtual DbSet<MetodosPago> MetodosPagos { get; set; }
 
-    public virtual DbSet<Paises> Paises { get; set; }
+    public virtual DbSet<Paise> Paises { get; set; }
 
-    public virtual DbSet<Roles> Roles { get; set; }
+    public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<Usuarios> Usuarios { get; set; }
+    public virtual DbSet<Usuario> Usuarios { get; set; }
 
     public virtual DbSet<VentasCabecera> VentasCabeceras { get; set; }
 
@@ -41,41 +70,46 @@ public partial class CumbreContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Autores>(entity =>
+        modelBuilder.Entity<Autore>(entity =>
         {
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Apellido).HasColumnName("apellido");
             entity.Property(e => e.Eliminado)
+                .IsRequired()
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
             entity.Property(e => e.Nombre).HasColumnName("nombre");
         });
 
-        modelBuilder.Entity<Categorias>(entity =>
+        modelBuilder.Entity<Categoria>(entity =>
         {
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
+                .IsRequired()
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
 
-        modelBuilder.Entity<Editoriales>(entity =>
+        modelBuilder.Entity<Editoriale>(entity =>
         {
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
+                .IsRequired()
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
             entity.Property(e => e.IdPaises).HasColumnName("ID_paises");
 
-            entity.HasOne(d => d.IdPaisesNavigation).WithMany(p => p.Editoriales).HasForeignKey(d => d.IdPaises);
+            entity.HasOne(d => d.IdPaisesNavigation).WithMany(p => p.Editoriales)
+                .HasForeignKey(d => d.IdPaises)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<Libros>(entity =>
+        modelBuilder.Entity<Libro>(entity =>
         {
             entity.HasKey(e => e.Isbn);
 
@@ -83,6 +117,7 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Edicion).HasColumnName("edicion");
             entity.Property(e => e.Eliminado)
+                .IsRequired()
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
@@ -95,11 +130,17 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Stock).HasColumnName("stock");
             entity.Property(e => e.Titulo).HasColumnName("titulo");
 
-            entity.HasOne(d => d.IdAutorNavigation).WithMany(p => p.Libros).HasForeignKey(d => d.IdAutor);
+            entity.HasOne(d => d.IdAutorNavigation).WithMany(p => p.Libros)
+                .HasForeignKey(d => d.IdAutor)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Libros).HasForeignKey(d => d.IdCategoria);
+            entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Libros)
+                .HasForeignKey(d => d.IdCategoria)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.IdEditorialNavigation).WithMany(p => p.Libros).HasForeignKey(d => d.IdEditorial);
+            entity.HasOne(d => d.IdEditorialNavigation).WithMany(p => p.Libros)
+                .HasForeignKey(d => d.IdEditorial)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<MetodosPago>(entity =>
@@ -109,32 +150,35 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
+                .IsRequired()
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
 
-        modelBuilder.Entity<Paises>(entity =>
+        modelBuilder.Entity<Paise>(entity =>
         {
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
+                .IsRequired()
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
 
-        modelBuilder.Entity<Roles>(entity =>
+        modelBuilder.Entity<Role>(entity =>
         {
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
+                .IsRequired()
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
 
-        modelBuilder.Entity<Usuarios>(entity =>
+        modelBuilder.Entity<Usuario>(entity =>
         {
             entity.HasIndex(e => e.NombreUsuario, "IX_Usuarios_nombre_usuario").IsUnique();
 
@@ -144,6 +188,7 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Apellido).HasColumnName("apellido");
             entity.Property(e => e.Dni).HasColumnName("DNI");
             entity.Property(e => e.Eliminado)
+                .IsRequired()
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
@@ -173,9 +218,13 @@ public partial class CumbreContext : DbContext
                 .HasColumnType("float")
                 .HasColumnName("total_venta");
 
-            entity.HasOne(d => d.IdMetodoPagoNavigation).WithMany(p => p.VentasCabeceras).HasForeignKey(d => d.IdMetodoPago);
+            entity.HasOne(d => d.IdMetodoPagoNavigation).WithMany(p => p.VentasCabeceras)
+                .HasForeignKey(d => d.IdMetodoPago)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.VentasCabeceras).HasForeignKey(d => d.IdUsuario);
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.VentasCabeceras)
+                .HasForeignKey(d => d.IdUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<VentasDetalle>(entity =>
@@ -193,9 +242,13 @@ public partial class CumbreContext : DbContext
                 .HasColumnType("float")
                 .HasColumnName("total");
 
-            entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.VentasDetalles).HasForeignKey(d => d.IdProducto);
+            entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.VentasDetalles)
+                .HasForeignKey(d => d.IdProducto)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasOne(d => d.IdVentaNavigation).WithMany(p => p.VentasDetalles).HasForeignKey(d => d.IdVenta);
+            entity.HasOne(d => d.IdVentaNavigation).WithMany(p => p.VentasDetalles)
+                .HasForeignKey(d => d.IdVenta)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -24,10 +24,10 @@ namespace Cumbre_Libros
 
             using (var db = new CumbreContext())
             {
-                Usuarios usuario = (from user in db.Usuarios
+                Usuario usuario = (from user in db.Usuarios
                                     where user.NombreUsuario == tUsuario.Text
                                     where user.Pass == tPassword.Text
-                                    select user).First();
+                                    select user).FirstOrDefault();
 
                 if (usuario != null)
                 {

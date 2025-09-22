@@ -46,6 +46,12 @@ namespace Cumbre_Libros
 
         private void bUsuarios_Click(object sender, EventArgs e)
         {
+            /*
+            var panel_usuarios = new ABM_Usuarios { Dock = DockStyle.Fill };
+
+            pCentral.Controls.Clear();
+            pCentral.Controls.Add(panel_usuarios);
+            */
             var panel_usuarios = new ABM_Usuarios { Dock = DockStyle.Fill };
 
             pCentral.Controls.Clear();
