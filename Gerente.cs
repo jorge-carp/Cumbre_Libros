@@ -46,12 +46,18 @@ namespace Cumbre_Libros
 
         private void bVendedores_Click(object sender, EventArgs e)
         {
+            var panel_vendedores = new ABM_Vendedores { Dock = DockStyle.Fill };
 
+            pCentral.Controls.Clear();
+            pCentral.Controls.Add(panel_vendedores);
         }
 
         private void bProductos_Click(object sender, EventArgs e)
         {
+          var panel_productos = new ABM_Productos { Dock = DockStyle.Fill };
 
+            pCentral.Controls.Clear();
+            pCentral.Controls.Add(panel_productos);
         }
 
         private void bProductos_MouseEnter(object sender, EventArgs e)
@@ -66,7 +72,10 @@ namespace Cumbre_Libros
 
         private void bVentas_Click(object sender, EventArgs e)
         {
+            var panel_ventas = new Reporte_Ventas { Dock = DockStyle.Fill };
 
+            pCentral.Controls.Clear();
+            pCentral.Controls.Add(panel_ventas);
         }
 
         private void bVentas_MouseEnter(object sender, EventArgs e)
