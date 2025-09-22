@@ -9,71 +9,73 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Cumbre_Libros
 {
     public partial class ABM_Usuarios : UserControl
     {
-        private readonly CumbreContext db = new CumbreContext();
+        private CumbreContext _context;
+        private BindingSource usuariosBindingSource = new BindingSource();
 
         public ABM_Usuarios()
         {
             InitializeComponent();
 
-            var dni_usuarios = db.Usuarios.Select(u => u.Dni); // .Where(u => u.Eliminado != false)
-            var roles = db.Roles.Select(r => r.Descripcion);
-            
-            cbBuscar.DataSource = dni_usuarios.ToList();
-            cbBuscar.SelectedIndex = -1;
-            cbRol.DataSource = roles.ToList();
-            cbRol.SelectedIndex = -1;
+            _context = new CumbreContext();
+
+            _context.Usuarios.Load();
+            usuariosBindingSource.DataSource = _context.Usuarios.Local.ToBindingList();
+            dataGridView1.DataSource = usuariosBindingSource;
+
+            dataGridView1.Columns["Id"].Visible = false;
+            dataGridView1.Columns["Pass"].Visible = false;
+            dataGridView1.Columns["PlainPassword"].Visible = false;
+            dataGridView1.Columns["IdRolNavigation"].Visible = false;
+            dataGridView1.Columns["VentasCabeceras"].Visible = false;
+            dataGridView1.Columns["Eliminado"].Visible = false;
+
+            dataGridView1.RowHeadersVisible = false;
+
+            dataGridView1.Columns["Editar"].DisplayIndex = dataGridView1.ColumnCount - 1;
+            dataGridView1.Columns["Eliminar"].DisplayIndex = dataGridView1.ColumnCount - 1;
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        private void cbBuscar_SelectionChangeCommitted(object sender, EventArgs e)
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            string? DNI_usuario = cbBuscar.SelectedItem?.ToString();
-
-            if (DNI_usuario != null)
+            if (checkBox1.Checked)
             {
-                bModificar.Enabled = true;
-                bEliminar.Enabled = true;
+                usuariosBindingSource.DataSource =
+                    new BindingList<Usuario>(_context.Usuarios.Local.Where(u => u.Eliminado).ToList());
 
-                var usuario = db.Usuarios.Single(u => u.Dni == int.Parse(DNI_usuario));
-
-                tDNI.Text = usuario.Dni.ToString();
-                tApellido.Text = usuario.Apellido;
-                tNombre.Text = usuario.Nombre;
-                tEmail.Text = usuario.Email;
-                tTelefono.Text = usuario.Telefono.ToString();
-                cbRol.SelectedIndex = usuario.IdRol - 1;
-                tNombreUsuario.Text = usuario.NombreUsuario;
-                tPassword.Text = usuario.Pass;
-
-                foreach (var tb in gbDatos.Controls.OfType<System.Windows.Forms.TextBox>())
-                    tb.ReadOnly = true;
-
-                cbRol.Enabled = false;
+                dataGridView1.Columns["Eliminar"].Visible = false;
             }
-        }
-
-        private void bModificar_Click(object sender, EventArgs e)
-        {
-            foreach (var tb in gbDatos.Controls.OfType<System.Windows.Forms.TextBox>())
-                tb.ReadOnly = false;
-
-            cbRol.Enabled = true;
-        }
-
-        private void bEliminar_Click(object sender, EventArgs e)
-        {
-            string? DNI_usuario = cbBuscar.SelectedItem?.ToString();
-
-            if (DNI_usuario != null)
+            else
             {
-                var usuario = db.Usuarios.Single(u => u.Dni == int.Parse(DNI_usuario));
+                usuariosBindingSource.DataSource =
+                    new BindingList<Usuario>(_context.Usuarios.Local.Where(u => !u.Eliminado).ToList());
 
+                dataGridView1.Columns["Eliminar"].Visible = true;
+            }
+
+            dataGridView1.DataSource = usuariosBindingSource;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Editar")
+            {
+                var edit_usuario = new Editar_Usuario(_context,
+                    _context.Usuarios.First(u => u.NombreUsuario == dataGridView1.Rows[e.RowIndex].Cells["NombreUsuario"].Value));
+
+                edit_usuario.ShowDialog();
+            }
+            else if (dataGridView1.Columns[e.ColumnIndex].Name == "Eliminar")
+            {
                 DialogResult respuesta = MessageBox.Show("¿Seguro que desea eliminar el usuario?",
                                                          "Confirmar eliminación",
                                                          MessageBoxButtons.YesNoCancel,
@@ -82,22 +84,15 @@ namespace Cumbre_Libros
 
                 if (respuesta == DialogResult.Yes)
                 {
-                    using var transaction = db.Database.BeginTransaction();
+                    using var transaction = _context.Database.BeginTransaction();
 
                     try
                     {
+                        Usuario usuario = _context.Usuarios
+                            .First(u => u.NombreUsuario == dataGridView1.Rows[e.RowIndex].Cells["NombreUsuario"].Value);
                         usuario.Eliminado = true;
 
-                        tDNI.Text = "";
-                        tApellido.Text = "";
-                        tNombre.Text = "";
-                        tEmail.Text = "";
-                        tTelefono.Text = "";
-                        cbRol.SelectedIndex = -1;
-                        tNombreUsuario.Text = "";
-                        tPassword.Text = "";
-
-                        db.SaveChanges();
+                        _context.SaveChanges();
                         transaction.Commit();
 
                         MessageBox.Show("El usuario se ha eliminado con éxito.", "Eliminación de usuario",
@@ -110,72 +105,14 @@ namespace Cumbre_Libros
                     }
                 }
             }
+
+            checkBox1_CheckedChanged(sender, e);
         }
 
-        private void bGuardar_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            if (tDNI.Text == "" || tApellido.Text == "" || tNombre.Text == "" || tEmail.Text == "" ||
-                tNombreUsuario.Text == "" || tPassword.Text == "" || tTelefono.Text == "" || cbRol.SelectedIndex == -1)
-            {
-                MessageBox.Show("Debe completar todos los campos.", "Creación de usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            if (tDNI.Text.Length > 8)
-            {
-                MessageBox.Show("Ingrese un DNI válido.", "Creación de usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            using var transaction = db.Database.BeginTransaction();
- 
-            try
-            {
-                Usuarios nuevo_usuario = new Usuarios
-                {
-                    Dni = int.Parse(tDNI.Text),
-                    Apellido = tApellido.Text,
-                    Nombre = tNombre.Text,
-                    Email = tEmail.Text,
-                    Telefono = int.Parse(tTelefono.Text),
-                    IdRol = cbRol.SelectedIndex,
-                    NombreUsuario = tNombreUsuario.Text,
-                    Pass = tPassword.Text,
-                };
-
-                db.Usuarios.Add(nuevo_usuario);
-
-                db.SaveChanges();
-                transaction.Commit();
-                MessageBox.Show("El usuario se ha creado con éxito.", "Creación de usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                var dni_usuarios = db.Usuarios.Select(u => u.Dni);
-                cbBuscar.DataSource = dni_usuarios.ToList();
-                cbBuscar.SelectedIndex = -1;
-                
-            }
-            catch (DbUpdateException)
-            {
-                transaction.Rollback();
-                MessageBox.Show("El usuario ya se encuentra en la base de datos.", "Creación de usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-
-        private void bLimpiar_Click(object sender, EventArgs e)
-        {
-            tDNI.Text = "";
-            tApellido.Text = "";
-            tNombre.Text = "";
-            tEmail.Text = "";
-            tTelefono.Text = "";
-            cbRol.SelectedIndex = -1;
-            tNombreUsuario.Text = "";
-            tPassword.Text = "";
-
-            foreach (var tb in gbDatos.Controls.OfType<System.Windows.Forms.TextBox>())
-                tb.ReadOnly = false;
-
-            cbRol.Enabled = true;
+            var crear_usuario = new Editar_Usuario(_context, null);
+            crear_usuario.ShowDialog();
         }
     }
 }
