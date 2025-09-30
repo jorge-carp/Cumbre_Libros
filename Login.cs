@@ -26,8 +26,14 @@ namespace Cumbre_Libros
 
             var user = db.Usuarios.SingleOrDefault(u => u.NombreUsuario == tUsuario.Text);
 
-            if (user != null && PasswordHelper.VerifyPassword(tPassword.Text, user.Pass))
+            if (user != null && PasswordHelper.VerifyPassword(tPassword.Text, user.Pass, out string? upgradedHash))
             {
+                if (upgradedHash != null)
+                {
+                    user.Pass = upgradedHash;
+                    db.SaveChanges();
+                }
+
                 this.Hide();
                 tUsuario.Text = "";
                 tPassword.Text = "";
