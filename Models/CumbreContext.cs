@@ -50,6 +50,8 @@ public partial class CumbreContext : DbContext
 
     public virtual DbSet<Editoriale> Editoriales { get; set; }
 
+    public virtual DbSet<Idioma> Idiomas { get; set; }
+
     public virtual DbSet<Libro> Libros { get; set; }
 
     public virtual DbSet<MetodosPago> MetodosPagos { get; set; }
@@ -109,21 +111,31 @@ public partial class CumbreContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<Libro>(entity =>
+        modelBuilder.Entity<Idioma>(entity =>
         {
-            entity.HasKey(e => e.Isbn);
-
-            entity.Property(e => e.Isbn).HasColumnName("ISBN");
+            entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
-            entity.Property(e => e.Edicion).HasColumnName("edicion");
             entity.Property(e => e.Eliminado)
                 .IsRequired()
                 .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
+        });
+
+        modelBuilder.Entity<Libro>(entity =>
+        {
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Descripcion).HasColumnName("descripcion");
+            entity.Property(e => e.Eliminado)
+                .HasDefaultValueSql("FALSE")
+                .HasColumnType("boolean")
+                .HasColumnName("eliminado");
+            entity.Property(e => e.FechaPublicacion).HasColumnName("fecha_publicacion");
             entity.Property(e => e.IdAutor).HasColumnName("ID_autor");
             entity.Property(e => e.IdCategoria).HasColumnName("ID_categoria");
             entity.Property(e => e.IdEditorial).HasColumnName("ID_editorial");
+            entity.Property(e => e.IdIdioma).HasColumnName("ID_idioma");
+            entity.Property(e => e.Isbn).HasColumnName("ISBN");
             entity.Property(e => e.Precio)
                 .HasColumnType("float")
                 .HasColumnName("precio");
@@ -140,6 +152,10 @@ public partial class CumbreContext : DbContext
 
             entity.HasOne(d => d.IdEditorialNavigation).WithMany(p => p.Libros)
                 .HasForeignKey(d => d.IdEditorial)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.IdIdiomaNavigation).WithMany(p => p.Libros)
+                .HasForeignKey(d => d.IdIdioma)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 

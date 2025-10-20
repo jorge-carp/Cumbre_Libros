@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cumbre_Libros.Models;
 
-public partial class Paise
+public partial class Idioma
 {
     public int Id { get; set; }
 
@@ -11,5 +11,5 @@ public partial class Paise
 
     public bool Eliminado { get; set; } = false;
 
-    public virtual ICollection<Editoriale> Editoriales { get; set; } = new List<Editoriale>();
+    public virtual ICollection<Libro> Libros { get; set; } = new List<Libro>();
 }

@@ -81,5 +81,17 @@ namespace Cumbre_Libros
         {
             this.Close();
         }
+
+        private void tUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                bInicio_Click(sender, e);
+        }
+
+        private void tPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                bInicio_Click(sender, e);
+        }
     }
 }

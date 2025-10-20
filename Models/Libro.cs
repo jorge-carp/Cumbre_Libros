@@ -5,7 +5,9 @@ namespace Cumbre_Libros.Models;
 
 public partial class Libro
 {
-    public int Isbn { get; set; }
+    public int Id { get; set; }
+
+    public long Isbn { get; set; }
 
     public int IdAutor { get; set; }
 
@@ -13,23 +15,27 @@ public partial class Libro
 
     public int IdEditorial { get; set; }
 
+    public int IdIdioma { get; set; }
+
     public string Titulo { get; set; } = null!;
 
     public string Descripcion { get; set; } = null!;
 
-    public int Edicion { get; set; }
+    public DateOnly FechaPublicacion { get; set; }
 
     public double Precio { get; set; }
 
     public int Stock { get; set; }
 
-    public bool? Eliminado { get; set; }
+    public bool Eliminado { get; set; } = false;
 
     public virtual Autore IdAutorNavigation { get; set; } = null!;
 
     public virtual Categoria IdCategoriaNavigation { get; set; } = null!;
 
     public virtual Editoriale IdEditorialNavigation { get; set; } = null!;
+
+    public virtual Idioma IdIdiomaNavigation { get; set; } = null!;
 
     public virtual ICollection<VentasDetalle> VentasDetalles { get; set; } = new List<VentasDetalle>();
 }

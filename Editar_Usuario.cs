@@ -20,6 +20,7 @@ namespace Cumbre_Libros
         private bool _modificacion = false;
         private bool _activar = false;
 
+
         public Editar_Usuario(CumbreContext context, Usuario usuario)
         {
             InitializeComponent();
