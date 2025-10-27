@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cumbre_Libros.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +13,13 @@ namespace Cumbre_Libros
 {
     public partial class Administrador : Form
     {
-        public Administrador(string nombre)
+        public Administrador(int ID)
         {
             InitializeComponent();
 
-            lNombre.Text = nombre;
+            var context = new CumbreContext();
+
+            lNombre.Text = context.Usuarios.Find(ID).Nombre;
         }
 
         private void bBackup_MouseEnter(object sender, EventArgs e)
@@ -46,12 +49,6 @@ namespace Cumbre_Libros
 
         private void bUsuarios_Click(object sender, EventArgs e)
         {
-            /*
-            var panel_usuarios = new ABM_Usuarios { Dock = DockStyle.Fill };
-
-            pCentral.Controls.Clear();
-            pCentral.Controls.Add(panel_usuarios);
-            */
             var panel_usuarios = new ABM_Usuarios { Dock = DockStyle.Fill };
 
             pCentral.Controls.Clear();

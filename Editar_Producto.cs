@@ -90,5 +90,81 @@ namespace Cumbre_Libros
 
             LoadData();
         }
+
+        private void bSumar_Click(object sender, EventArgs e)
+        {
+            if (tStock.Text == "")
+                tStock.Text = "1";
+            else
+                tStock.Text = (int.Parse(tStock.Text) + 1).ToString();
+        }
+
+        private void bRestar_Click(object sender, EventArgs e)
+        {
+            if (tStock.Text != "1")
+                tStock.Text = (int.Parse(tStock.Text) - 1).ToString();
+        }
+
+        private void bGuardar_Click(object sender, EventArgs e)
+        {
+            var transaction = _ctxt.Database.BeginTransaction();
+
+            Libro nuevo_libro = new Libro
+            {
+                Isbn = long.Parse(tISBN.Text),
+                Titulo = tTitulo.Text,
+                Descripcion = tDescripcion.Text,
+                Precio = double.Parse(tPrecio.Text),
+                Stock = int.Parse(tStock.Text),
+                IdAutor = cbAutor.SelectedIndex + 1,
+                IdCategoria = cbCategoria.SelectedIndex + 1,
+                IdEditorial = cbEditorial.SelectedIndex + 1,
+                IdIdioma = cbIdioma.SelectedIndex + 1,
+                FechaPublicacion = DateOnly.FromDateTime(dateTimePicker1.Value),
+            };
+
+            try
+            {
+                if (_ISBN == null)
+                {
+                    _ctxt.Libros.Add(nuevo_libro);
+
+                    _ctxt.SaveChanges();
+                    transaction.Commit();
+                    MessageBox.Show("Producto añadido correctamente.", "Añadir producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    var libro_existente = _ctxt.Libros.First(l => l.Isbn == _ISBN);
+                    libro_existente.Isbn = nuevo_libro.Isbn;
+                    libro_existente.Titulo = nuevo_libro.Titulo;
+                    libro_existente.Descripcion = nuevo_libro.Descripcion;
+                    libro_existente.Precio = nuevo_libro.Precio;
+                    libro_existente.Stock = nuevo_libro.Stock;
+                    libro_existente.IdAutor = nuevo_libro.IdAutor;
+                    libro_existente.IdCategoria = nuevo_libro.IdCategoria;
+                    libro_existente.IdEditorial = nuevo_libro.IdEditorial;
+                    libro_existente.IdIdioma = nuevo_libro.IdIdioma;
+                    libro_existente.FechaPublicacion = nuevo_libro.FechaPublicacion;
+                    _ctxt.Libros.Update(libro_existente);
+
+                    _ctxt.SaveChanges();
+                    transaction.Commit();
+                    MessageBox.Show("Producto modificado correctamente.", "Modificar producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                this.Close();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Error al guardar el producto. Verifique que los datos sean correctos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void bCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

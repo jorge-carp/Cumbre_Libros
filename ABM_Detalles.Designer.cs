@@ -99,6 +99,7 @@
             dgvDetalles.CellValueChanged += dgvDetalles_CellValueChanged;
             dgvDetalles.CurrentCellDirtyStateChanged += dgvDetalles_CurrentCellDirtyStateChanged;
             dgvDetalles.DataBindingComplete += dgvDetalles_DataBindingComplete;
+            dgvDetalles.DefaultValuesNeeded += dgvDetalles_DefaultValuesNeeded;
             // 
             // Eliminar
             // 

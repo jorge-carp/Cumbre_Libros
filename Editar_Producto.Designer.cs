@@ -31,14 +31,15 @@
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
             groupBox1 = new GroupBox();
+            bIdioma = new Button();
             cbIdioma = new ComboBox();
             dateTimePicker1 = new DateTimePicker();
             label10 = new Label();
             bEditorial = new Button();
             bCategoria = new Button();
             bAutor = new Button();
-            button2 = new Button();
-            button1 = new Button();
+            bRestar = new Button();
+            bSumar = new Button();
             bCancelar = new Button();
             bGuardar = new Button();
             label9 = new Label();
@@ -58,7 +59,6 @@
             label2 = new Label();
             tISBN = new TextBox();
             label1 = new Label();
-            bIdioma = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
@@ -92,8 +92,8 @@
             groupBox1.Controls.Add(bEditorial);
             groupBox1.Controls.Add(bCategoria);
             groupBox1.Controls.Add(bAutor);
-            groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(bRestar);
+            groupBox1.Controls.Add(bSumar);
             groupBox1.Controls.Add(bCancelar);
             groupBox1.Controls.Add(bGuardar);
             groupBox1.Controls.Add(label9);
@@ -120,6 +120,18 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Datos";
+            // 
+            // bIdioma
+            // 
+            bIdioma.FlatStyle = FlatStyle.Flat;
+            bIdioma.ForeColor = SystemColors.Control;
+            bIdioma.Image = Properties.Resources.icons8_add_24;
+            bIdioma.Location = new Point(472, 227);
+            bIdioma.Name = "bIdioma";
+            bIdioma.Size = new Size(27, 26);
+            bIdioma.TabIndex = 29;
+            bIdioma.UseVisualStyleBackColor = true;
+            bIdioma.Click += bIdioma_Click;
             // 
             // cbIdioma
             // 
@@ -183,27 +195,29 @@
             bAutor.UseVisualStyleBackColor = true;
             bAutor.Click += bAutor_Click;
             // 
-            // button2
+            // bRestar
             // 
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ForeColor = SystemColors.Control;
-            button2.Image = Properties.Resources.icons8_minus_24;
-            button2.Location = new Point(466, 312);
-            button2.Name = "button2";
-            button2.Size = new Size(24, 24);
-            button2.TabIndex = 21;
-            button2.UseVisualStyleBackColor = true;
+            bRestar.FlatStyle = FlatStyle.Flat;
+            bRestar.ForeColor = SystemColors.Control;
+            bRestar.Image = Properties.Resources.icons8_minus_24;
+            bRestar.Location = new Point(466, 312);
+            bRestar.Name = "bRestar";
+            bRestar.Size = new Size(24, 24);
+            bRestar.TabIndex = 21;
+            bRestar.UseVisualStyleBackColor = true;
+            bRestar.Click += bRestar_Click;
             // 
-            // button1
+            // bSumar
             // 
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = SystemColors.Control;
-            button1.Image = Properties.Resources.icons8_plus_24;
-            button1.Location = new Point(440, 312);
-            button1.Name = "button1";
-            button1.Size = new Size(24, 24);
-            button1.TabIndex = 20;
-            button1.UseVisualStyleBackColor = true;
+            bSumar.FlatStyle = FlatStyle.Flat;
+            bSumar.ForeColor = SystemColors.Control;
+            bSumar.Image = Properties.Resources.icons8_plus_24;
+            bSumar.Location = new Point(440, 312);
+            bSumar.Name = "bSumar";
+            bSumar.Size = new Size(24, 24);
+            bSumar.TabIndex = 20;
+            bSumar.UseVisualStyleBackColor = true;
+            bSumar.Click += bSumar_Click;
             // 
             // bCancelar
             // 
@@ -216,6 +230,7 @@
             bCancelar.Text = "Cancelar";
             bCancelar.TextAlign = ContentAlignment.MiddleRight;
             bCancelar.UseVisualStyleBackColor = true;
+            bCancelar.Click += bCancelar_Click;
             // 
             // bGuardar
             // 
@@ -228,6 +243,7 @@
             bGuardar.Text = "Guardar";
             bGuardar.TextAlign = ContentAlignment.MiddleRight;
             bGuardar.UseVisualStyleBackColor = true;
+            bGuardar.Click += bGuardar_Click;
             // 
             // label9
             // 
@@ -376,18 +392,6 @@
             label1.TabIndex = 0;
             label1.Text = "ISBN:";
             // 
-            // bIdioma
-            // 
-            bIdioma.FlatStyle = FlatStyle.Flat;
-            bIdioma.ForeColor = SystemColors.Control;
-            bIdioma.Image = Properties.Resources.icons8_add_24;
-            bIdioma.Location = new Point(472, 227);
-            bIdioma.Name = "bIdioma";
-            bIdioma.Size = new Size(27, 26);
-            bIdioma.TabIndex = 29;
-            bIdioma.UseVisualStyleBackColor = true;
-            bIdioma.Click += bIdioma_Click;
-            // 
             // Editar_Producto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -430,8 +434,8 @@
         private ComboBox cbCategoria;
         private Button bCancelar;
         private Button bGuardar;
-        private Button button2;
-        private Button button1;
+        private Button bRestar;
+        private Button bSumar;
         private Button bAutor;
         private Button bEditorial;
         private Button bCategoria;

@@ -77,8 +77,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Apellido).HasColumnName("apellido");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
             entity.Property(e => e.Nombre).HasColumnName("nombre");
@@ -89,8 +87,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
@@ -100,8 +96,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
             entity.Property(e => e.IdPaises).HasColumnName("ID_paises");
@@ -116,8 +110,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
@@ -127,7 +119,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
             entity.Property(e => e.FechaPublicacion).HasColumnName("fecha_publicacion");
@@ -166,8 +157,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
@@ -177,8 +166,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
@@ -188,8 +175,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
@@ -204,8 +189,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Apellido).HasColumnName("apellido");
             entity.Property(e => e.Dni).HasColumnName("DNI");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
             entity.Property(e => e.Email).HasColumnName("email");
@@ -226,6 +209,7 @@ public partial class CumbreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Fecha)
+                .HasDefaultValueSql("datetime('now', 'localtime')")
                 .HasColumnType("datetime")
                 .HasColumnName("fecha");
             entity.Property(e => e.IdMetodoPago).HasColumnName("ID_metodo_pago");

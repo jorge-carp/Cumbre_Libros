@@ -22,47 +22,50 @@ namespace Cumbre_Libros
             // vendedor: maria
             // contraseña: 1234
 
-            using var db = new CumbreContext();
-
-            var user = db.Usuarios.SingleOrDefault(u => u.NombreUsuario == tUsuario.Text);
-
-            if (user != null && PasswordHelper.VerifyPassword(tPassword.Text, user.Pass, out string? upgradedHash))
+            Usuario? user;
+            using (var db = new CumbreContext())
             {
-                if (upgradedHash != null)
+                user = db.Usuarios.SingleOrDefault(u => u.NombreUsuario == tUsuario.Text);
+
+                if (user != null && PasswordHelper.VerifyPassword(tPassword.Text, user.Pass, out string? upgradedHash))
                 {
-                    user.Pass = upgradedHash;
-                    db.SaveChanges();
+                    if (upgradedHash != null)
+                    {
+                        user.Pass = upgradedHash;
+                        db.SaveChanges();
+                    }
                 }
 
+            }
+
+            if (user != null)
+            {
                 this.Hide();
                 tUsuario.Text = "";
                 tPassword.Text = "";
-
                 switch (user.IdRol)
                 {
                     case 1:
-                        Administrador admin = new Administrador(user.Nombre);
+                        Administrador admin = new Administrador(user.Id);
                         admin.ShowDialog();
                         break;
-
                     case 2:
-                        Gerente gerente = new Gerente(user.Nombre);
+                        Gerente gerente = new Gerente(user.Id);
                         gerente.ShowDialog();
                         break;
-
                     case 3:
-                        Vendedor vendedor = new Vendedor(user.Nombre);
+                        Vendedor vendedor = new Vendedor(user.Id);
                         vendedor.ShowDialog();
                         break;
-
                     default:
                         break;
                 }
-
                 this.Show();
             }
             else
+            {
                 MessageBox.Show("Usuario o Contraseña Incorrectos Intente De Nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

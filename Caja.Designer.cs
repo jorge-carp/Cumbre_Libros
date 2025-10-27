@@ -15,6 +15,7 @@
         {
             if (disposing && (components != null))
             {
+                _context?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -28,8 +29,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             dgvLibros = new DataGridView();
             Agregar = new DataGridViewImageColumn();
@@ -38,8 +41,15 @@
             label1 = new Label();
             tBuscar = new TextBox();
             groupBox2 = new GroupBox();
+            cbMetodos = new ComboBox();
+            label4 = new Label();
+            lSubtotal = new Label();
+            label3 = new Label();
             bConfirmar = new Button();
             dgvCarrito = new DataGridView();
+            Sumar = new DataGridViewImageColumn();
+            Restar = new DataGridViewImageColumn();
+            Eliminar = new DataGridViewImageColumn();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLibros).BeginInit();
             groupBox2.SuspendLayout();
@@ -63,26 +73,38 @@
             // 
             // dgvLibros
             // 
+            dgvLibros.AllowUserToAddRows = false;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgvLibros.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgvLibros.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvLibros.Columns.AddRange(new DataGridViewColumn[] { Agregar });
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dgvLibros.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Window;
+            dataGridViewCellStyle10.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle10.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
+            dgvLibros.DefaultCellStyle = dataGridViewCellStyle10;
             dgvLibros.Location = new Point(6, 61);
             dgvLibros.Name = "dgvLibros";
             dgvLibros.Size = new Size(802, 235);
             dgvLibros.TabIndex = 5;
+            dgvLibros.CellContentClick += dgvLibros_CellContentClick;
             // 
             // Agregar
             // 
+            Agregar.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             Agregar.HeaderText = "Añadir";
             Agregar.Image = Properties.Resources.icons8_add_24;
             Agregar.Name = "Agregar";
+            Agregar.Width = 48;
             // 
             // cbGenero
             // 
@@ -121,6 +143,10 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(cbMetodos);
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(lSubtotal);
+            groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(bConfirmar);
             groupBox2.Controls.Add(dgvCarrito);
             groupBox2.Font = new Font("Segoe UI", 12F);
@@ -131,34 +157,105 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Carrito";
             // 
+            // cbMetodos
+            // 
+            cbMetodos.FormattingEnabled = true;
+            cbMetodos.Location = new Point(632, 98);
+            cbMetodos.Name = "cbMetodos";
+            cbMetodos.Size = new Size(159, 29);
+            cbMetodos.TabIndex = 10;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(619, 61);
+            label4.Name = "label4";
+            label4.Size = new Size(127, 21);
+            label4.TabIndex = 9;
+            label4.Text = "Método de pago:";
+            // 
+            // lSubtotal
+            // 
+            lSubtotal.AutoSize = true;
+            lSubtotal.Location = new Point(708, 166);
+            lSubtotal.Name = "lSubtotal";
+            lSubtotal.Size = new Size(0, 21);
+            lSubtotal.TabIndex = 8;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(631, 166);
+            label3.Name = "label3";
+            label3.Size = new Size(71, 21);
+            label3.TabIndex = 7;
+            label3.Text = "Subtotal:";
+            // 
             // bConfirmar
             // 
             bConfirmar.Font = new Font("Segoe UI", 10F);
             bConfirmar.Image = Properties.Resources.icons8_add_shopping_cart_36;
             bConfirmar.ImageAlign = ContentAlignment.MiddleLeft;
-            bConfirmar.Location = new Point(340, 245);
+            bConfirmar.Location = new Point(649, 219);
             bConfirmar.Name = "bConfirmar";
             bConfirmar.Size = new Size(113, 41);
             bConfirmar.TabIndex = 6;
             bConfirmar.Text = "Confirmar";
             bConfirmar.TextAlign = ContentAlignment.MiddleRight;
             bConfirmar.UseVisualStyleBackColor = true;
+            bConfirmar.Click += bConfirmar_Click;
             // 
             // dgvCarrito
             // 
+            dgvCarrito.AllowUserToAddRows = false;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = SystemColors.Control;
+            dataGridViewCellStyle11.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle11.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            dgvCarrito.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dgvCarrito.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvCarrito.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvCarrito.Columns.AddRange(new DataGridViewColumn[] { Sumar, Restar, Eliminar });
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = SystemColors.Window;
+            dataGridViewCellStyle12.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle12.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.False;
+            dgvCarrito.DefaultCellStyle = dataGridViewCellStyle12;
             dgvCarrito.Location = new Point(6, 28);
             dgvCarrito.Name = "dgvCarrito";
-            dgvCarrito.Size = new Size(802, 213);
+            dgvCarrito.Size = new Size(607, 252);
             dgvCarrito.TabIndex = 0;
+            dgvCarrito.CellContentClick += dgvCarrito_CellContentClick;
+            dgvCarrito.CellFormatting += dgvCarrito_CellFormatting;
+            // 
+            // Sumar
+            // 
+            Sumar.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            Sumar.HeaderText = "Sumar";
+            Sumar.Image = Properties.Resources.icons8_plus_24;
+            Sumar.Name = "Sumar";
+            Sumar.Width = 47;
+            // 
+            // Restar
+            // 
+            Restar.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            Restar.HeaderText = "Restar";
+            Restar.Image = Properties.Resources.icons8_minus_24;
+            Restar.Name = "Restar";
+            Restar.Width = 45;
+            // 
+            // Eliminar
+            // 
+            Eliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            Eliminar.HeaderText = "Eliminar";
+            Eliminar.Image = Properties.Resources.icons8_remove_24;
+            Eliminar.Name = "Eliminar";
+            Eliminar.Width = 56;
             // 
             // Caja
             // 
@@ -172,6 +269,7 @@
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLibros).EndInit();
             groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCarrito).EndInit();
             ResumeLayout(false);
         }
@@ -188,5 +286,12 @@
         private Button bConfirmar;
         private DataGridView dgvCarrito;
         private DataGridViewImageColumn Agregar;
+        private DataGridViewImageColumn Sumar;
+        private DataGridViewImageColumn Restar;
+        private DataGridViewImageColumn Eliminar;
+        private Label lSubtotal;
+        private Label label3;
+        private ComboBox cbMetodos;
+        private Label label4;
     }
 }

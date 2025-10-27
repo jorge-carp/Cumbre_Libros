@@ -49,7 +49,7 @@ namespace Cumbre_Libros
                         DisplayMember = "Descripcion",
                         ValueMember = "Id",
                         HeaderText = "País",
-                        DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton
+                        DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton,
                     };
 
                     int index = dgvDetalles.Columns["IdPaises"].DisplayIndex;
@@ -322,6 +322,12 @@ namespace Cumbre_Libros
             {
                 dgvDetalles.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
+        }
+
+        private void dgvDetalles_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            if (dgvDetalles.Columns.Contains("Paises"))
+                e.Row.Cells["Paises"].Value = 1;
         }
     }
 }
