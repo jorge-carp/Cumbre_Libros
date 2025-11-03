@@ -131,6 +131,9 @@ public partial class CumbreContext : DbContext
                 .HasColumnType("float")
                 .HasColumnName("precio");
             entity.Property(e => e.Stock).HasColumnName("stock");
+            entity.Property(e => e.StockMin)
+                .HasDefaultValue(3)
+                .HasColumnName("stock_min");
             entity.Property(e => e.Titulo).HasColumnName("titulo");
 
             entity.HasOne(d => d.IdAutorNavigation).WithMany(p => p.Libros)
@@ -181,6 +184,8 @@ public partial class CumbreContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
+            entity.HasIndex(e => e.Dni, "IX_Usuarios_DNI").IsUnique();
+
             entity.HasIndex(e => e.NombreUsuario, "IX_Usuarios_nombre_usuario").IsUnique();
 
             entity.Property(e => e.Id)
@@ -208,6 +213,9 @@ public partial class CumbreContext : DbContext
             entity.ToTable("Ventas_cabecera");
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Eliminado)
+                .HasColumnType("boolean")
+                .HasColumnName("eliminado");
             entity.Property(e => e.Fecha)
                 .HasDefaultValueSql("datetime('now', 'localtime')")
                 .HasColumnType("datetime")

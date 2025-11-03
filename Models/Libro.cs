@@ -27,7 +27,9 @@ public partial class Libro
 
     public int Stock { get; set; }
 
-    public bool Eliminado { get; set; } = false;
+    public bool Eliminado { get; set; }
+
+    public int StockMin { get; set; }
 
     public virtual Autore IdAutorNavigation { get; set; } = null!;
 

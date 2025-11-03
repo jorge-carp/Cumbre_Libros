@@ -9,7 +9,7 @@ public partial class Role
 
     public string Descripcion { get; set; } = null!;
 
-    public bool Eliminado { get; set; } = false;
+    public bool Eliminado { get; set; }
 
     public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

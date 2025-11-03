@@ -9,7 +9,7 @@ public partial class Idioma
 
     public string Descripcion { get; set; } = null!;
 
-    public bool Eliminado { get; set; } = false;
+    public bool Eliminado { get; set; }
 
     public virtual ICollection<Libro> Libros { get; set; } = new List<Libro>();
 }

@@ -11,9 +11,11 @@ public partial class VentasCabecera
 
     public int IdMetodoPago { get; set; }
 
-    public DateTime Fecha { get; set; }
+    public DateOnly Fecha { get; set; }
 
     public double TotalVenta { get; set; }
+
+    public bool Eliminado { get; set; }
 
     public virtual MetodosPago IdMetodoPagoNavigation { get; set; } = null!;
 

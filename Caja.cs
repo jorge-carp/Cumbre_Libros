@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WkHtmlToPdfDotNet;
 using WkHtmlToPdfDotNet.Contracts;
+using PuppeteerSharp;
+using PuppeteerSharp.Media;
+using System.Threading.Tasks;
 
 namespace Cumbre_Libros
 {
@@ -51,48 +54,141 @@ namespace Cumbre_Libros
                 _venta_cabecera = venta;
             }
 
-            public void GenerateTicket(string templatePath, string outputPdfPath)
+            public async Task GenerateTicket(string templatePath, string outputPdfPath)
             {
-                // 1️⃣ Load template
-                string template = File.ReadAllText(templatePath);
+                /*
+                // Paths
+                string workingDir = AppDomain.CurrentDomain.BaseDirectory;
+                string basePath = Path.Combine(Directory.GetParent(workingDir).Parent.Parent.Parent.FullName, "Templates");
+                string htmlPath = Path.Combine(basePath, "index.html");
+                string cssPath = Path.Combine(basePath, "style.css");
+                string outputPdf = Path.Combine(workingDir, "invoice.pdf");
 
-                // 2️⃣ Build item list HTML
-                var sb = new StringBuilder();
-                foreach (var item in _carrito)
-                    sb.AppendLine($"{item.IdProductoNavigation.Titulo} x{item.Cantidad} .... ${item.Total:F2}<br>");
+                // Load HTML
+                string html = File.ReadAllText(htmlPath);
 
-                // 3️⃣ Replace placeholders
-                string filledHtml = template
-                    .Replace("{{Date}}", _venta_cabecera.Fecha.ToString())
-                    .Replace("{{Items}}", sb.ToString())
-                    .Replace("{{Total}}", _venta_cabecera.TotalVenta.ToString("F2"));
+                // Convert resource logo to Base64
+                string logoBase64 = "data:image/png;base64," + ImageToBase64(Properties.Resources.logo);
 
-                // 4️⃣ Configure PDF generation
-                var doc = new HtmlToPdfDocument()
+                // Build the item table
+                var itemsHtml = new StringBuilder();
+                for (int i = 0; i < _carrito.Count; i++)
+                {
+                    itemsHtml.AppendLine($"<tr>\r\n" +
+                        $"<td class=\"border-b py-3 pl-3\">{i+1}</td>\r\n" +
+                        $"<td class=\"border-b py-3 pl-2\">{_carrito[i].IdProductoNavigation.Titulo}</td>\r\n" +
+                        $"<td class=\"border-b py-3 pl-2 text-right\">${_carrito[i].Precio}</td>\r\n" +
+                        $"<td class=\"border-b py-3 pl-2 text-center\">{_carrito[i].Cantidad}</td>\r\n" +
+                        $"<td class=\"border-b py-3 pl-2 text-right\">${_carrito[i].Total}</td>\r\n" +
+                        $"</tr>");
+                }
+
+                // Replace placeholder in the HTML
+                html = html
+                    .Replace("{{LogoBase64}}", logoBase64)
+                    //.Replace("{{Date}}", _venta_cabecera.Fecha.ToString("d", CultureInfo.InvariantCulture))
+                    //.Replace("{{Number}}", _venta_cabecera.Id.ToString())
+                    .Replace("{{Items}}", itemsHtml.ToString());
+
+                // PDF options
+                var doc = new HtmlToPdfDocument
                 {
                     GlobalSettings = new GlobalSettings
                     {
                         PaperSize = PaperKind.A4,
                         Orientation = WkHtmlToPdfDotNet.Orientation.Portrait,
-                        Margins = new MarginSettings { Top = 5, Bottom = 5, Left = 5, Right = 5 },
-                        Out = outputPdfPath,
-                        DocumentTitle = "Ticket de venta"
+                        Out = outputPdf,
+                        DocumentTitle = "Invoice"
                     },
                     Objects = {
-                new ObjectSettings
-                {
-                    HtmlContent = filledHtml,
-                    WebSettings = { DefaultEncoding = "utf-8", PrintMediaType = true },
-                    LoadSettings = { BlockLocalFileAccess = false }
-                }
-            }
+                        new ObjectSettings
+                        {
+                            HtmlContent = html,
+                            WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = cssPath },
+                            LoadSettings = { BlockLocalFileAccess = false }
+                        }
+                    }
                 };
 
-                // 5️⃣ Generate PDF
                 _converter.Convert(doc);
+                MessageBox.Show("Factura generada.");
+                */
+                await new BrowserFetcher().DownloadAsync();
 
-                //Console.WriteLine($"✅ Ticket PDF generated: {outputPdfPath}");
-                MessageBox.Show("Ticket de venta generado.");
+                using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
+
+                string workingDir = AppDomain.CurrentDomain.BaseDirectory;
+                string basePath = Path.Combine(Directory.GetParent(workingDir).Parent.Parent.Parent.FullName, "Templates");
+                string htmlPath = Path.Combine(basePath, "invoice.html");
+                var template = File.ReadAllText(htmlPath);
+
+                // Convert resource logo to Base64
+                string logoBase64 = "data:image/png;base64," + ImageToBase64(Properties.Resources.logo);
+
+                // Build the item table
+                var itemsHtml = new StringBuilder();
+                for (int i = 0; i < _carrito.Count; i++)
+                {
+                    itemsHtml.AppendLine($"<tr>\r\n" +
+                        $"<td class=\"border-b py-3 pl-3\">{i + 1}</td>\r\n" +
+                        $"<td class=\"border-b py-3 pl-2\">{_carrito[i].IdProductoNavigation.Titulo}</td>\r\n" +
+                        $"<td class=\"border-b py-3 pl-2 text-right\">${_carrito[i].Precio.ToString("N2")}</td>\r\n" +
+                        $"<td class=\"border-b py-3 pl-2 text-center\">{_carrito[i].Cantidad}</td>\r\n" +
+                        $"<td class=\"border-b py-3 pl-2 text-right\">${_carrito[i].Total.ToString("N2")}</td>\r\n" +
+                        $"</tr>");
+                }
+
+                template = template
+                    .Replace("{{LogoBase64}}", logoBase64)
+                    .Replace("{{Date}}", _venta_cabecera.Fecha.ToString("d", CultureInfo.InvariantCulture))
+                    .Replace("{{Number}}", _venta_cabecera.Id.ToString())
+                    .Replace("{{Items}}", itemsHtml.ToString())
+                    .Replace("{{Subtotal}}", _venta_cabecera.TotalVenta.ToString("N2"))
+                    .Replace("{{Total}}", _venta_cabecera.TotalVenta.ToString("N2"))
+                    .Replace("{{Metodo_pago}}", _venta_cabecera.IdMetodoPagoNavigation.Descripcion);
+
+                var page = await browser.NewPageAsync();
+                await page.SetContentAsync(template);
+                await page.PdfAsync("invoice.pdf", new PdfOptions
+                {
+                    Format = PaperFormat.A4,
+                    PrintBackground = true,
+                    MarginOptions = new MarginOptions
+                    {
+                        Top = "20px",
+                        Right = "20px",
+                        Bottom = "20px",
+                        Left = "20px"
+                    },
+                    DisplayHeaderFooter = false,
+                    Landscape = false
+                });
+
+                await page.PdfAsync("invoice.pdf", new PdfOptions
+                {
+                    Scale = 1.0m,
+                    PrintBackground = true,
+                    Landscape = false,
+                    PageRanges = "1-2",
+                    Format = PaperFormat.A4,
+                    MarginOptions = new MarginOptions
+                    {
+                        Top = "50px",
+                        Bottom = "50px",
+                        Left = "20px",
+                        Right = "20px"
+                    }
+                });
+                MessageBox.Show("PDF Generated Successfully!");
+            }
+
+            public static string ImageToBase64(Image image)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    return Convert.ToBase64String(ms.ToArray());
+                }
             }
         }
 
@@ -244,7 +340,7 @@ namespace Cumbre_Libros
             lSubtotal.Text = _carrito.Sum(d => d.Total).ToString();
         }
 
-        private void bConfirmar_Click(object sender, EventArgs e)
+        private async void bConfirmar_Click(object sender, EventArgs e)
         {
             var transaction = _context.Database.BeginTransaction();
 
@@ -263,10 +359,9 @@ namespace Cumbre_Libros
                     IdUsuario = _ID_Usuario,
                     IdMetodoPago = cbMetodos.SelectedIndex + 1,
                 };
-
                 _context.VentasCabeceras.Add(nuevaVenta);
                 _context.SaveChanges();
-                
+
                 foreach (var detalle in _carrito)
                 {
                     detalle.IdVenta = nuevaVenta.Id;
@@ -277,8 +372,8 @@ namespace Cumbre_Libros
                 //_context.SaveChanges();
                 //transaction.Commit();
 
-                var generator = new TicketPdfGenerator(_carrito, nuevaVenta);
-                generator.GenerateTicket("ticket_template.html", "ticket.pdf");
+                var generator = new Factura(_context, _carrito, nuevaVenta);
+                await generator.GenerarFactura();
 
                 MessageBox.Show("La venta se ha confirmado con éxito.", "Confirmar venta",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -286,10 +381,10 @@ namespace Cumbre_Libros
                 lSubtotal.Text = "0";
                 cbMetodos.SelectedIndex = -1;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 transaction.Rollback();
-                MessageBox.Show(ex.InnerException.Message, "Confirmar venta",
+                MessageBox.Show("No sé que onda", "Confirmar venta",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }

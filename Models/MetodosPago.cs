@@ -9,7 +9,7 @@ public partial class MetodosPago
 
     public string Descripcion { get; set; } = null!;
 
-    public bool Eliminado { get; set; } = false;
+    public bool Eliminado { get; set; }
 
     public virtual ICollection<VentasCabecera> VentasCabeceras { get; set; } = new List<VentasCabecera>();
 }
