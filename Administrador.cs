@@ -64,5 +64,13 @@ namespace Cumbre_Libros
         {
             bUsuarios.Image = Properties.Resources.icons8_account_male_48;
         }
+
+        private void bBackup_Click(object sender, EventArgs e)
+        {
+            var panel_backup = new Backup { Dock = DockStyle.Fill };
+
+            pCentral.Controls.Clear();
+            pCentral.Controls.Add(panel_backup);
+        }
     }
 }

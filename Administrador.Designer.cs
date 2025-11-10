@@ -95,6 +95,7 @@
             bBackup.Text = "Backup";
             bBackup.TextAlign = ContentAlignment.BottomCenter;
             bBackup.UseVisualStyleBackColor = false;
+            bBackup.Click += bBackup_Click;
             bBackup.MouseEnter += bBackup_MouseEnter;
             bBackup.MouseLeave += bBackup_MouseLeave;
             // 

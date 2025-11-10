@@ -19,13 +19,12 @@ using System.Threading.Tasks;
 
 namespace Cumbre_Libros
 {
-    
-
     public partial class Caja : UserControl
     {
         private CumbreContext _context = new CumbreContext();
         private int _ID_Usuario;
         private BindingList<VentasDetalle> _carrito = new BindingList<VentasDetalle>();
+        private BindingList<LibrosView> _libros;
 
         public class LibrosView
         {
@@ -39,157 +38,8 @@ namespace Cumbre_Libros
             public string Fecha_publicacion { get; set; }
             public double Precio { get; set; }
             public int Stock { get; set; }
-        }
-
-        public class TicketPdfGenerator
-        {
-            private readonly IConverter _converter;
-            private BindingList<VentasDetalle> _carrito;
-            private VentasCabecera _venta_cabecera;
-
-            public TicketPdfGenerator(BindingList<VentasDetalle> carrito, VentasCabecera venta)
-            {
-                _converter = new SynchronizedConverter(new PdfTools());
-                _carrito = carrito;
-                _venta_cabecera = venta;
-            }
-
-            public async Task GenerateTicket(string templatePath, string outputPdfPath)
-            {
-                /*
-                // Paths
-                string workingDir = AppDomain.CurrentDomain.BaseDirectory;
-                string basePath = Path.Combine(Directory.GetParent(workingDir).Parent.Parent.Parent.FullName, "Templates");
-                string htmlPath = Path.Combine(basePath, "index.html");
-                string cssPath = Path.Combine(basePath, "style.css");
-                string outputPdf = Path.Combine(workingDir, "invoice.pdf");
-
-                // Load HTML
-                string html = File.ReadAllText(htmlPath);
-
-                // Convert resource logo to Base64
-                string logoBase64 = "data:image/png;base64," + ImageToBase64(Properties.Resources.logo);
-
-                // Build the item table
-                var itemsHtml = new StringBuilder();
-                for (int i = 0; i < _carrito.Count; i++)
-                {
-                    itemsHtml.AppendLine($"<tr>\r\n" +
-                        $"<td class=\"border-b py-3 pl-3\">{i+1}</td>\r\n" +
-                        $"<td class=\"border-b py-3 pl-2\">{_carrito[i].IdProductoNavigation.Titulo}</td>\r\n" +
-                        $"<td class=\"border-b py-3 pl-2 text-right\">${_carrito[i].Precio}</td>\r\n" +
-                        $"<td class=\"border-b py-3 pl-2 text-center\">{_carrito[i].Cantidad}</td>\r\n" +
-                        $"<td class=\"border-b py-3 pl-2 text-right\">${_carrito[i].Total}</td>\r\n" +
-                        $"</tr>");
-                }
-
-                // Replace placeholder in the HTML
-                html = html
-                    .Replace("{{LogoBase64}}", logoBase64)
-                    //.Replace("{{Date}}", _venta_cabecera.Fecha.ToString("d", CultureInfo.InvariantCulture))
-                    //.Replace("{{Number}}", _venta_cabecera.Id.ToString())
-                    .Replace("{{Items}}", itemsHtml.ToString());
-
-                // PDF options
-                var doc = new HtmlToPdfDocument
-                {
-                    GlobalSettings = new GlobalSettings
-                    {
-                        PaperSize = PaperKind.A4,
-                        Orientation = WkHtmlToPdfDotNet.Orientation.Portrait,
-                        Out = outputPdf,
-                        DocumentTitle = "Invoice"
-                    },
-                    Objects = {
-                        new ObjectSettings
-                        {
-                            HtmlContent = html,
-                            WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = cssPath },
-                            LoadSettings = { BlockLocalFileAccess = false }
-                        }
-                    }
-                };
-
-                _converter.Convert(doc);
-                MessageBox.Show("Factura generada.");
-                */
-                await new BrowserFetcher().DownloadAsync();
-
-                using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
-
-                string workingDir = AppDomain.CurrentDomain.BaseDirectory;
-                string basePath = Path.Combine(Directory.GetParent(workingDir).Parent.Parent.Parent.FullName, "Templates");
-                string htmlPath = Path.Combine(basePath, "invoice.html");
-                var template = File.ReadAllText(htmlPath);
-
-                // Convert resource logo to Base64
-                string logoBase64 = "data:image/png;base64," + ImageToBase64(Properties.Resources.logo);
-
-                // Build the item table
-                var itemsHtml = new StringBuilder();
-                for (int i = 0; i < _carrito.Count; i++)
-                {
-                    itemsHtml.AppendLine($"<tr>\r\n" +
-                        $"<td class=\"border-b py-3 pl-3\">{i + 1}</td>\r\n" +
-                        $"<td class=\"border-b py-3 pl-2\">{_carrito[i].IdProductoNavigation.Titulo}</td>\r\n" +
-                        $"<td class=\"border-b py-3 pl-2 text-right\">${_carrito[i].Precio.ToString("N2")}</td>\r\n" +
-                        $"<td class=\"border-b py-3 pl-2 text-center\">{_carrito[i].Cantidad}</td>\r\n" +
-                        $"<td class=\"border-b py-3 pl-2 text-right\">${_carrito[i].Total.ToString("N2")}</td>\r\n" +
-                        $"</tr>");
-                }
-
-                template = template
-                    .Replace("{{LogoBase64}}", logoBase64)
-                    .Replace("{{Date}}", _venta_cabecera.Fecha.ToString("d", CultureInfo.InvariantCulture))
-                    .Replace("{{Number}}", _venta_cabecera.Id.ToString())
-                    .Replace("{{Items}}", itemsHtml.ToString())
-                    .Replace("{{Subtotal}}", _venta_cabecera.TotalVenta.ToString("N2"))
-                    .Replace("{{Total}}", _venta_cabecera.TotalVenta.ToString("N2"))
-                    .Replace("{{Metodo_pago}}", _venta_cabecera.IdMetodoPagoNavigation.Descripcion);
-
-                var page = await browser.NewPageAsync();
-                await page.SetContentAsync(template);
-                await page.PdfAsync("invoice.pdf", new PdfOptions
-                {
-                    Format = PaperFormat.A4,
-                    PrintBackground = true,
-                    MarginOptions = new MarginOptions
-                    {
-                        Top = "20px",
-                        Right = "20px",
-                        Bottom = "20px",
-                        Left = "20px"
-                    },
-                    DisplayHeaderFooter = false,
-                    Landscape = false
-                });
-
-                await page.PdfAsync("invoice.pdf", new PdfOptions
-                {
-                    Scale = 1.0m,
-                    PrintBackground = true,
-                    Landscape = false,
-                    PageRanges = "1-2",
-                    Format = PaperFormat.A4,
-                    MarginOptions = new MarginOptions
-                    {
-                        Top = "50px",
-                        Bottom = "50px",
-                        Left = "20px",
-                        Right = "20px"
-                    }
-                });
-                MessageBox.Show("PDF Generated Successfully!");
-            }
-
-            public static string ImageToBase64(Image image)
-            {
-                using (var ms = new MemoryStream())
-                {
-                    image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    return Convert.ToBase64String(ms.ToArray());
-                }
-            }
+            public int StockMinimo { get; set; }
+            public bool Eliminado { get; set; }
         }
 
         public Caja(int ID)
@@ -198,11 +48,32 @@ namespace Cumbre_Libros
             _ID_Usuario = ID;
 
             _context.Libros.Load();
-            
+
+            var categorias = _context.Categorias
+                .Where(c => !c.Eliminado)
+                .OrderBy(c => c.Descripcion)
+                .ToList();
+
+            cbGenero.DataSource = categorias;
+            cbGenero.DisplayMember = "Descripcion";
+            cbGenero.ValueMember = "Descripcion";
+
+            var titulos = _context.Libros
+                .Where(l => !l.Eliminado)
+                .Select(l => l.Titulo)
+                .ToList();
+
+            var autoSource = new AutoCompleteStringCollection();
+            autoSource.AddRange(titulos.ToArray());
+
+            tBuscar.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            tBuscar.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            tBuscar.AutoCompleteCustomSource = autoSource;
+
             cbMetodos.DataSource = _context.MetodosPagos.Select(m => m.Descripcion).ToList();
             cbMetodos.SelectedIndex = -1;
 
-            List<LibrosView> libros = _context.Libros
+            var libros = _context.Libros
                 .Include(l => l.IdAutorNavigation)
                 .Include(l => l.IdCategoriaNavigation)
                 .Include(l => l.IdEditorialNavigation)
@@ -219,10 +90,14 @@ namespace Cumbre_Libros
                     Fecha_publicacion = l.FechaPublicacion.ToString("d/M/yyyy", CultureInfo.InvariantCulture),
                     Precio = l.Precio,
                     Stock = l.Stock,
+                    StockMinimo = l.StockMin,
+                    Eliminado = l.Eliminado
                 })
                 .ToList();
 
-            dgvLibros.DataSource = libros;
+            _libros = new BindingList<LibrosView>(libros);
+            dgvLibros.DataSource = _libros.Where(l => !l.Eliminado && l.Stock > l.StockMinimo).ToList();
+            cbGenero.SelectedIndex = -1;
 
             foreach (DataGridViewColumn column in dgvLibros.Columns)
             {
@@ -245,6 +120,8 @@ namespace Cumbre_Libros
             }
 
             dgvLibros.Columns["Id"].Visible = false;
+            dgvLibros.Columns["Eliminado"].Visible = false;
+            dgvLibros.Columns["StockMinimo"].Visible = false;
             dgvLibros.Columns["Agregar"].DisplayIndex = dgvLibros.ColumnCount - 1;
             dgvLibros.Columns["Fecha_publicacion"].HeaderText = "Publicado";
 
@@ -367,10 +244,14 @@ namespace Cumbre_Libros
                     detalle.IdVenta = nuevaVenta.Id;
                     _context.VentasDetalles.Add(detalle);
                     var libro = _context.Libros.First(l => l.Id == detalle.IdProducto);
+                    if ((libro.Stock - detalle.Cantidad) < libro.StockMin)
+                    {
+                        throw new Exception($"No hay suficiente stock del libro '{libro.Titulo}'.");
+                    }
                     libro.Stock -= detalle.Cantidad;
                 }
-                //_context.SaveChanges();
-                //transaction.Commit();
+                _context.SaveChanges();
+                transaction.Commit();
 
                 var generator = new Factura(_context, _carrito, nuevaVenta);
                 await generator.GenerarFactura();
@@ -381,12 +262,50 @@ namespace Cumbre_Libros
                 lSubtotal.Text = "0";
                 cbMetodos.SelectedIndex = -1;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 transaction.Rollback();
-                MessageBox.Show("No sé que onda", "Confirmar venta",
+                MessageBox.Show(ex.Message, "Confirmar venta",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void tBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                string filtro = tBuscar.Text.Trim().ToLower();
+
+                var lista = _libros
+                    .Where(l => l.Titulo.ToLower().Contains(filtro))
+                    .ToList();
+
+                dgvLibros.DataSource = new BindingList<LibrosView>(lista);
+            }
+
+            if (string.IsNullOrWhiteSpace(tBuscar.Text))
+            {
+                dgvLibros.DataSource = _libros.Where(l => !l.Eliminado && l.Stock > l.StockMinimo).ToList();
+                return;
+            }
+        }
+
+        private void cbGenero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbGenero.SelectedIndex == -1)
+            {
+                dgvLibros.DataSource = _libros.Where(l => !l.Eliminado && l.Stock > l.StockMinimo).ToList();
+                return;
+            }
+
+            string categoria = (string)cbGenero.SelectedValue;
+
+            var filtrados = _libros
+                .Where(l => l.Categoria == categoria)
+                .ToList();
+
+            dgvLibros.DataSource = _libros.Where(l => l.Categoria == categoria).ToList(); ;
         }
     }
 }

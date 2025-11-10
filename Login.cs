@@ -23,6 +23,7 @@ namespace Cumbre_Libros
             // contraseña: 1234
 
             Usuario? user;
+            bool pass_ok = false;
             using (var db = new CumbreContext())
             {
                 user = db.Usuarios.SingleOrDefault(u => u.NombreUsuario == tUsuario.Text);
@@ -34,11 +35,11 @@ namespace Cumbre_Libros
                         user.Pass = upgradedHash;
                         db.SaveChanges();
                     }
+                    pass_ok = true;
                 }
-
             }
 
-            if (user != null)
+            if (user != null && pass_ok)
             {
                 this.Hide();
                 tUsuario.Text = "";
@@ -64,7 +65,7 @@ namespace Cumbre_Libros
             }
             else
             {
-                MessageBox.Show("Usuario o Contraseña Incorrectos Intente De Nuevo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Usuario o Contraseña incorrectos, intente de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

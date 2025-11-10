@@ -127,6 +127,8 @@ namespace Cumbre_Libros
             {
                 if (_ISBN == null)
                 {
+                    if (nuevo_libro.Stock < 3)
+                        throw new Exception();
                     _ctxt.Libros.Add(nuevo_libro);
 
                     _ctxt.SaveChanges();
@@ -140,7 +142,10 @@ namespace Cumbre_Libros
                     libro_existente.Titulo = nuevo_libro.Titulo;
                     libro_existente.Descripcion = nuevo_libro.Descripcion;
                     libro_existente.Precio = nuevo_libro.Precio;
-                    libro_existente.Stock = nuevo_libro.Stock;
+                    if (nuevo_libro.Stock < libro_existente.StockMin)
+                        throw new Exception();
+                    else
+                        libro_existente.Stock = nuevo_libro.Stock;
                     libro_existente.IdAutor = nuevo_libro.IdAutor;
                     libro_existente.IdCategoria = nuevo_libro.IdCategoria;
                     libro_existente.IdEditorial = nuevo_libro.IdEditorial;

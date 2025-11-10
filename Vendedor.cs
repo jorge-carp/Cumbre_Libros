@@ -59,7 +59,10 @@ namespace Cumbre_Libros
 
         private void bReporte_Click(object sender, EventArgs e)
         {
+            var reporte = new Reporte_Individual(_ID) { Dock = DockStyle.Fill };
 
+            pCentral.Controls.Clear();
+            pCentral.Controls.Add(reporte);
         }
 
         private void bReporte_MouseEnter(object sender, EventArgs e)

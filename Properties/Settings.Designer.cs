@@ -26,12 +26,23 @@ namespace Cumbre_Libros.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        public string LastExportPath {
             get {
-                return ((string)(this["Setting"]));
+                return ((string)(this["LastExportPath"]));
             }
             set {
-                this["Setting"] = value;
+                this["LastExportPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime LastExportDate {
+            get {
+                return ((global::System.DateTime)(this["LastExportDate"]));
+            }
+            set {
+                this["LastExportDate"] = value;
             }
         }
     }

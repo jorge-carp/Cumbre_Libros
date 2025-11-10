@@ -20,8 +20,7 @@ namespace Cumbre_Libros
         private bool _modificacion = false;
         private bool _activar = false;
 
-
-        public Editar_Usuario(CumbreContext context, Usuario usuario)
+        public Editar_Usuario(CumbreContext context, Usuario usuario, bool vendedor = false)
         {
             InitializeComponent();
 
@@ -51,6 +50,12 @@ namespace Cumbre_Libros
                 checkBox1.Visible = false;
                 tPassword.ReadOnly = false;
                 tConfirmarPassword.ReadOnly = false;
+            }
+
+            if (vendedor)
+            {
+                cbPerfil.SelectedIndex = 2;
+                cbPerfil.Enabled = false;
             }
 
             _context = context;

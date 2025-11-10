@@ -779,14 +779,9 @@
                             </td>
                             <td class="w-1/2 align-top text-right">
                                 <div class="text-sm text-neutral-600">
-                                    <p class="font-bold">Consumidor Final</p>
-                                    <!--
-                                    <p>Number: 123456789</p>
-                                    <p>VAT: 23456789</p>
-                                    <p>9552 Vandervort Spurs</p>
-                                    <p>Paradise, 43325</p>
-                                    <p>United States</p>
-                                    -->
+                                    <p class="font-bold">{{Destino}}</p>
+                                    {{Det_documento}}
+                                    <p>Vendedor: {{Seller}}</p>
                                 </div>
                             </td>
                         </tr>
@@ -852,7 +847,7 @@
                                                                 <div class="whitespace-nowrap text-slate-400">Subtotal:</div>
                                                             </td>
                                                             <td class="border-b p-3 text-right">
-                                                                <div class="whitespace-nowrap font-bold text-main">${{Subtotal}}</div>
+                                                                <div class="whitespace-nowrap font-bold text-main">{{Subtotal}}</div>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -860,7 +855,7 @@
                                                                 <div class="whitespace-nowrap text-slate-400">Importe Otros Tributos:</div>
                                                             </td>
                                                             <td class="p-3 text-right">
-                                                                <div class="whitespace-nowrap font-bold text-main">$0.00</div>
+                                                                <div class="whitespace-nowrap font-bold text-main">{{Impuestos}}</div>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -868,7 +863,7 @@
                                                                 <div class="whitespace-nowrap font-bold text-white">Total:</div>
                                                             </td>
                                                             <td class="bg-main p-3 text-right">
-                                                                <div class="whitespace-nowrap font-bold text-white">${{Total}}</div>
+                                                                <div class="whitespace-nowrap font-bold text-white">{{Total}}</div>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -893,6 +888,7 @@
                 -->
             </div>
 
+            <!--
             <div class="px-14 py-10 text-sm text-neutral-700">
                 <p class="text-main font-bold">Notes</p>
                 <p class="italic">
@@ -900,6 +896,7 @@
                     for previewing layouts and visual mockups.
                 </p>
             </div>
+            -->
 
             <footer class="fixed bottom-0 left-0 bg-slate-100 w-full text-neutral-600 text-center text-xs py-3">
                 Cumbre Libros

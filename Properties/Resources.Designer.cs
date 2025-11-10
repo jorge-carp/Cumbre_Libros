@@ -103,6 +103,16 @@ namespace Cumbre_Libros.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_add_361 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-add-361", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_add_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-add-48", resourceCulture);
@@ -173,6 +183,16 @@ namespace Cumbre_Libros.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_cancel_24 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-cancel-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_cancel_36 {
             get {
                 object obj = ResourceManager.GetObject("icons8-cancel-36", resourceCulture);
@@ -196,6 +216,16 @@ namespace Cumbre_Libros.Properties {
         internal static System.Drawing.Bitmap icons8_check_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-check-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_data_migration_36 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-data-migration-36", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -306,6 +336,26 @@ namespace Cumbre_Libros.Properties {
         internal static System.Drawing.Bitmap icons8_minus_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-minus-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_pdf_24 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-pdf-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_pdf_241 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-pdf-241", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

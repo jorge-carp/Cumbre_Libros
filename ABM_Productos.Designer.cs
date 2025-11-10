@@ -68,11 +68,11 @@
             // bAgregar
             // 
             bAgregar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bAgregar.Image = Properties.Resources.icons8_add_36;
+            bAgregar.Image = Properties.Resources.icons8_add_361;
             bAgregar.ImageAlign = ContentAlignment.MiddleLeft;
-            bAgregar.Location = new Point(711, 34);
+            bAgregar.Location = new Point(697, 29);
             bAgregar.Name = "bAgregar";
-            bAgregar.Size = new Size(77, 33);
+            bAgregar.Size = new Size(91, 38);
             bAgregar.TabIndex = 1;
             bAgregar.Text = "Añadir";
             bAgregar.TextAlign = ContentAlignment.MiddleRight;
