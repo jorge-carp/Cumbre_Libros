@@ -270,6 +270,7 @@ namespace Cumbre_Libros
                         v.TotalVenta
                     })
                     .ToList();
+                dgvVentas.Columns["Anular"].Visible = false;
             }
             else
             {
@@ -284,6 +285,7 @@ namespace Cumbre_Libros
                         v.TotalVenta
                     })
                     .ToList();
+                dgvVentas.Columns["Anular"].Visible = true;
             }
         }
 
