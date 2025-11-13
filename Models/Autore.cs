@@ -11,7 +11,7 @@ public partial class Autore
 
     public string Nombre { get; set; } = null!;
 
-    public bool? Eliminado { get; set; }
+    public bool Eliminado { get; set; }
 
     public virtual ICollection<Libro> Libros { get; set; } = new List<Libro>();
 }

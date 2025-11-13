@@ -66,11 +66,11 @@
             // button1
             // 
             button1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Image = Properties.Resources.icons8_add_48;
+            button1.Image = Properties.Resources.icons8_add_361;
             button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.Location = new Point(686, 19);
+            button1.Location = new Point(699, 26);
             button1.Name = "button1";
-            button1.Size = new Size(100, 48);
+            button1.Size = new Size(87, 41);
             button1.TabIndex = 1;
             button1.Text = "Añadir";
             button1.TextAlign = ContentAlignment.MiddleRight;

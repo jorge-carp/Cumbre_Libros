@@ -33,17 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Equin.ApplicationFramework.BindingListView" Version="1.4.5222.35545" />
+    <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.95" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PuppeteerSharp" Version="20.2.4" />
+    <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -90,28 +88,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\Resources\fondo-rojo-suave-de-lujo-abstracto-diseno-de-diseno-de-san-valentin-de-navidad-plantilla-web-de-estudio-informe-comercial-con-color-degradado-de-circulo-suave.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\data-recovery %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\office-man %282%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\profit-up %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\box %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\teamwork %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\emergency-exit %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Resources\financial-statement.png" />
+    <None Update="cumbre.db">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Receipt-Template-4-Word.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

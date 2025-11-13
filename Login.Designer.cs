@@ -72,6 +72,7 @@
             tUsuario.Name = "tUsuario";
             tUsuario.Size = new Size(116, 23);
             tUsuario.TabIndex = 2;
+            tUsuario.KeyDown += tUsuario_KeyDown;
             // 
             // tPassword
             // 
@@ -145,6 +146,7 @@
             // 
             // Login
             // 
+            AcceptButton = bInicio;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(261, 285);

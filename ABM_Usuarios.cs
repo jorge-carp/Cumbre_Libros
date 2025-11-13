@@ -47,15 +47,13 @@ namespace Cumbre_Libros
         {
             if (checkBox1.Checked)
             {
-                usuariosBindingSource.DataSource =
-                    new BindingList<Usuario>(_context.Usuarios.Local.Where(u => u.Eliminado).ToList());
+                usuariosBindingSource.DataSource = new BindingList<Usuario>(_context.Usuarios.Local.Where(u => u.Eliminado).ToList());
 
                 dataGridView1.Columns["Eliminar"].Visible = false;
             }
             else
             {
-                usuariosBindingSource.DataSource =
-                    new BindingList<Usuario>(_context.Usuarios.Local.Where(u => !u.Eliminado).ToList());
+                usuariosBindingSource.DataSource = new BindingList<Usuario>(_context.Usuarios.Local.Where(u => !u.Eliminado).ToList());
 
                 dataGridView1.Columns["Eliminar"].Visible = true;
             }
@@ -69,8 +67,7 @@ namespace Cumbre_Libros
 
             if (dataGridView1.Columns[e.ColumnIndex].Name == "Editar")
             {
-                var edit_usuario = new Editar_Usuario(_context,
-                    _context.Usuarios.First(u => u.NombreUsuario == dataGridView1.Rows[e.RowIndex].Cells["NombreUsuario"].Value));
+                var edit_usuario = new Editar_Usuario(_context, _context.Usuarios.First(u => u.NombreUsuario == dataGridView1.Rows[e.RowIndex].Cells["NombreUsuario"].Value));
 
                 edit_usuario.ShowDialog();
             }

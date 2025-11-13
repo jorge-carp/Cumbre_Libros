@@ -15,6 +15,8 @@ public partial class VentasCabecera
 
     public double TotalVenta { get; set; }
 
+    public bool Eliminado { get; set; }
+
     public virtual MetodosPago IdMetodoPagoNavigation { get; set; } = null!;
 
     public virtual Usuario IdUsuarioNavigation { get; set; } = null!;

@@ -9,7 +9,7 @@ public partial class Paise
 
     public string Descripcion { get; set; } = null!;
 
-    public bool? Eliminado { get; set; }
+    public bool Eliminado { get; set; }
 
     public virtual ICollection<Editoriale> Editoriales { get; set; } = new List<Editoriale>();
 }

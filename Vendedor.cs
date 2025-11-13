@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cumbre_Libros.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +13,15 @@ namespace Cumbre_Libros
 {
     public partial class Vendedor : Form
     {
-        public Vendedor(string nombre)
+        private int _ID;
+        public Vendedor(int ID)
         {
             InitializeComponent();
 
-            lNombre.Text = nombre;
+            var context = new CumbreContext();
+
+            _ID = ID;
+            lNombre.Text = context.Usuarios.Find(ID).Nombre;
         }
 
         private void bLogout_MouseEnter(object sender, EventArgs e)
@@ -36,7 +41,10 @@ namespace Cumbre_Libros
 
         private void bCaja_Click(object sender, EventArgs e)
         {
+            var caja = new Caja(_ID) { Dock = DockStyle.Fill };
 
+            pCentral.Controls.Clear();
+            pCentral.Controls.Add(caja);
         }
 
         private void bCaja_MouseEnter(object sender, EventArgs e)
@@ -51,7 +59,10 @@ namespace Cumbre_Libros
 
         private void bReporte_Click(object sender, EventArgs e)
         {
+            var reporte = new Reporte_Individual(_ID) { Dock = DockStyle.Fill };
 
+            pCentral.Controls.Clear();
+            pCentral.Controls.Add(reporte);
         }
 
         private void bReporte_MouseEnter(object sender, EventArgs e)

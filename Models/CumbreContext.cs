@@ -50,6 +50,8 @@ public partial class CumbreContext : DbContext
 
     public virtual DbSet<Editoriale> Editoriales { get; set; }
 
+    public virtual DbSet<Idioma> Idiomas { get; set; }
+
     public virtual DbSet<Libro> Libros { get; set; }
 
     public virtual DbSet<MetodosPago> MetodosPagos { get; set; }
@@ -64,9 +66,11 @@ public partial class CumbreContext : DbContext
 
     public virtual DbSet<VentasDetalle> VentasDetalles { get; set; }
 
+    string dbPath = Path.Combine(Application.StartupPath, @"..\..\..\cumbre.db");
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlite("Data Source=cumbre.db");
+        => optionsBuilder.UseSqlite($"Data Source={Path.GetFullPath(dbPath)}");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -75,8 +79,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Apellido).HasColumnName("apellido");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
             entity.Property(e => e.Nombre).HasColumnName("nombre");
@@ -87,8 +89,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
@@ -98,8 +98,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
             entity.Property(e => e.IdPaises).HasColumnName("ID_paises");
@@ -109,25 +107,35 @@ public partial class CumbreContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<Libro>(entity =>
+        modelBuilder.Entity<Idioma>(entity =>
         {
-            entity.HasKey(e => e.Isbn);
-
-            entity.Property(e => e.Isbn).HasColumnName("ISBN");
+            entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
-            entity.Property(e => e.Edicion).HasColumnName("edicion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
+        });
+
+        modelBuilder.Entity<Libro>(entity =>
+        {
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Descripcion).HasColumnName("descripcion");
+            entity.Property(e => e.Eliminado)
+                .HasColumnType("boolean")
+                .HasColumnName("eliminado");
+            entity.Property(e => e.FechaPublicacion).HasColumnName("fecha_publicacion");
             entity.Property(e => e.IdAutor).HasColumnName("ID_autor");
             entity.Property(e => e.IdCategoria).HasColumnName("ID_categoria");
             entity.Property(e => e.IdEditorial).HasColumnName("ID_editorial");
+            entity.Property(e => e.IdIdioma).HasColumnName("ID_idioma");
+            entity.Property(e => e.Isbn).HasColumnName("ISBN");
             entity.Property(e => e.Precio)
                 .HasColumnType("float")
                 .HasColumnName("precio");
             entity.Property(e => e.Stock).HasColumnName("stock");
+            entity.Property(e => e.StockMin)
+                .HasDefaultValue(3)
+                .HasColumnName("stock_min");
             entity.Property(e => e.Titulo).HasColumnName("titulo");
 
             entity.HasOne(d => d.IdAutorNavigation).WithMany(p => p.Libros)
@@ -141,6 +149,10 @@ public partial class CumbreContext : DbContext
             entity.HasOne(d => d.IdEditorialNavigation).WithMany(p => p.Libros)
                 .HasForeignKey(d => d.IdEditorial)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entity.HasOne(d => d.IdIdiomaNavigation).WithMany(p => p.Libros)
+                .HasForeignKey(d => d.IdIdioma)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<MetodosPago>(entity =>
@@ -150,8 +162,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
@@ -161,8 +171,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
@@ -172,14 +180,14 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
         });
 
         modelBuilder.Entity<Usuario>(entity =>
         {
+            entity.HasIndex(e => e.Dni, "IX_Usuarios_DNI").IsUnique();
+
             entity.HasIndex(e => e.NombreUsuario, "IX_Usuarios_nombre_usuario").IsUnique();
 
             entity.Property(e => e.Id)
@@ -188,8 +196,6 @@ public partial class CumbreContext : DbContext
             entity.Property(e => e.Apellido).HasColumnName("apellido");
             entity.Property(e => e.Dni).HasColumnName("DNI");
             entity.Property(e => e.Eliminado)
-                .IsRequired()
-                .HasDefaultValueSql("FALSE")
                 .HasColumnType("boolean")
                 .HasColumnName("eliminado");
             entity.Property(e => e.Email).HasColumnName("email");
@@ -209,7 +215,11 @@ public partial class CumbreContext : DbContext
             entity.ToTable("Ventas_cabecera");
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Eliminado)
+                .HasColumnType("boolean")
+                .HasColumnName("eliminado");
             entity.Property(e => e.Fecha)
+                .HasDefaultValueSql("datetime('now', 'localtime')")
                 .HasColumnType("datetime")
                 .HasColumnName("fecha");
             entity.Property(e => e.IdMetodoPago).HasColumnName("ID_metodo_pago");

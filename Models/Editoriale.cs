@@ -11,7 +11,7 @@ public partial class Editoriale
 
     public string Descripcion { get; set; } = null!;
 
-    public bool? Eliminado { get; set; }
+    public bool Eliminado { get; set; }
 
     public virtual Paise IdPaisesNavigation { get; set; } = null!;
 

@@ -26,7 +26,7 @@ public partial class Usuario
     [System.ComponentModel.DataAnnotations.Schema.NotMapped]
     public string PlainPassword { get; set; }
 
-    public bool Eliminado { get; set; } = false;
+    public bool Eliminado { get; set; }
 
     public virtual Role IdRolNavigation { get; set; } = null!;
 

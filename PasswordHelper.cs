@@ -18,9 +18,27 @@ namespace Cumbre_Libros
             return Convert.ToBase64String(salt) + ":" + Convert.ToBase64String(hash);
         }
 
-        public static bool VerifyPassword(string password, string storedHash)
+        public static bool VerifyPassword(string password, string storedHash, out string? upgradedHash)
         {
+            upgradedHash = null;
+
+            if (string.IsNullOrEmpty(storedHash))
+                return false;
+
             var parts = storedHash.Split(':');
+
+            // Case 1: Old plaintext password
+            if (parts.Length != 2)
+            {
+                if (password == storedHash) // plaintext match
+                {
+                    // Upgrade hash immediately
+                    upgradedHash = HashPassword(password);
+                    return true;
+                }
+                return false;
+            }
+
             var salt = Convert.FromBase64String(parts[0]);
             var storedHashBytes = Convert.FromBase64String(parts[1]);
 

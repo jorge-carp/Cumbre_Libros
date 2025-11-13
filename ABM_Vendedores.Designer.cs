@@ -3,338 +3,110 @@
     partial class ABM_Vendedores
     {
         /// <summary> 
-        /// Variable del diseñador necesaria.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
-        /// Limpiar los recursos que se estén usando.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
+                _context?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        #region Código generado por el Diseñador de componentes
+        #region Component Designer generated code
 
         /// <summary> 
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido de este método con el editor de código.
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            bGuardar = new Button();
-            gbDatos = new GroupBox();
-            bLimpiar = new Button();
-            cbRol = new ComboBox();
-            lPerfil = new Label();
-            tPassword = new TextBox();
-            tNombreUsuario = new TextBox();
-            tTelefono = new TextBox();
-            tEmail = new TextBox();
-            tNombre = new TextBox();
-            tApellido = new TextBox();
-            tDNI = new TextBox();
-            lPassword = new Label();
-            lNombreUsuario = new Label();
-            lEmail = new Label();
-            lTelefono = new Label();
-            lNombre = new Label();
-            lApellido = new Label();
-            lDNI = new Label();
-            gbBuscarVend = new GroupBox();
-            bEliminar = new Button();
-            bModificar = new Button();
-            cbBuscar = new ComboBox();
-            lBuscarDNI = new Label();
-            gbDatos.SuspendLayout();
-            gbBuscarVend.SuspendLayout();
+            dgvVendedores = new DataGridView();
+            Editar = new DataGridViewImageColumn();
+            Eliminar = new DataGridViewImageColumn();
+            cbEliminados = new CheckBox();
+            bAgregar = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvVendedores).BeginInit();
             SuspendLayout();
             // 
-            // bGuardar
+            // dgvVendedores
             // 
-            bGuardar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bGuardar.Location = new Point(611, 72);
-            bGuardar.Name = "bGuardar";
-            bGuardar.Size = new Size(82, 27);
-            bGuardar.TabIndex = 7;
-            bGuardar.Text = "Guardar";
-            bGuardar.UseVisualStyleBackColor = true;
+            dgvVendedores.AllowUserToAddRows = false;
+            dgvVendedores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVendedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvVendedores.Columns.AddRange(new DataGridViewColumn[] { Editar, Eliminar });
+            dgvVendedores.Location = new Point(19, 73);
+            dgvVendedores.Name = "dgvVendedores";
+            dgvVendedores.Size = new Size(781, 507);
+            dgvVendedores.TabIndex = 0;
+            dgvVendedores.CellContentClick += dgvVendedores_CellContentClick;
             // 
-            // gbDatos
+            // Editar
             // 
-            gbDatos.Controls.Add(bLimpiar);
-            gbDatos.Controls.Add(cbRol);
-            gbDatos.Controls.Add(lPerfil);
-            gbDatos.Controls.Add(tPassword);
-            gbDatos.Controls.Add(tNombreUsuario);
-            gbDatos.Controls.Add(tTelefono);
-            gbDatos.Controls.Add(tEmail);
-            gbDatos.Controls.Add(tNombre);
-            gbDatos.Controls.Add(tApellido);
-            gbDatos.Controls.Add(tDNI);
-            gbDatos.Controls.Add(lPassword);
-            gbDatos.Controls.Add(lNombreUsuario);
-            gbDatos.Controls.Add(lEmail);
-            gbDatos.Controls.Add(lTelefono);
-            gbDatos.Controls.Add(lNombre);
-            gbDatos.Controls.Add(lApellido);
-            gbDatos.Controls.Add(lDNI);
-            gbDatos.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            gbDatos.Location = new Point(57, 117);
-            gbDatos.Name = "gbDatos";
-            gbDatos.Size = new Size(671, 456);
-            gbDatos.TabIndex = 6;
-            gbDatos.TabStop = false;
-            gbDatos.Text = "Datos:";
+            Editar.HeaderText = "Editar";
+            Editar.Image = Properties.Resources.icons8_edit_24;
+            Editar.Name = "Editar";
             // 
-            // bLimpiar
+            // Eliminar
             // 
-            bLimpiar.Location = new Point(536, 421);
-            bLimpiar.Name = "bLimpiar";
-            bLimpiar.Size = new Size(129, 29);
-            bLimpiar.TabIndex = 16;
-            bLimpiar.Text = "Limpiar campos";
-            bLimpiar.UseVisualStyleBackColor = true;
+            Eliminar.HeaderText = "Eliminar";
+            Eliminar.Image = Properties.Resources.icons8_remove_24;
+            Eliminar.Name = "Eliminar";
             // 
-            // cbRol
+            // cbEliminados
             // 
-            cbRol.FormattingEnabled = true;
-            cbRol.Location = new Point(278, 279);
-            cbRol.Name = "cbRol";
-            cbRol.Size = new Size(218, 29);
-            cbRol.TabIndex = 15;
+            cbEliminados.AutoSize = true;
+            cbEliminados.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbEliminados.Location = new Point(35, 43);
+            cbEliminados.Name = "cbEliminados";
+            cbEliminados.Size = new Size(101, 24);
+            cbEliminados.TabIndex = 1;
+            cbEliminados.Text = "Eliminados";
+            cbEliminados.UseVisualStyleBackColor = true;
+            cbEliminados.CheckedChanged += cbEliminados_CheckedChanged;
             // 
-            // lPerfil
+            // bAgregar
             // 
-            lPerfil.AutoSize = true;
-            lPerfil.Location = new Point(127, 282);
-            lPerfil.Name = "lPerfil";
-            lPerfil.Size = new Size(48, 21);
-            lPerfil.TabIndex = 14;
-            lPerfil.Text = "Perfil:";
-            // 
-            // tPassword
-            // 
-            tPassword.Location = new Point(278, 374);
-            tPassword.Name = "tPassword";
-            tPassword.Size = new Size(218, 29);
-            tPassword.TabIndex = 13;
-            // 
-            // tNombreUsuario
-            // 
-            tNombreUsuario.Location = new Point(278, 326);
-            tNombreUsuario.Name = "tNombreUsuario";
-            tNombreUsuario.Size = new Size(218, 29);
-            tNombreUsuario.TabIndex = 12;
-            // 
-            // tTelefono
-            // 
-            tTelefono.Location = new Point(278, 232);
-            tTelefono.Name = "tTelefono";
-            tTelefono.Size = new Size(218, 29);
-            tTelefono.TabIndex = 11;
-            // 
-            // tEmail
-            // 
-            tEmail.Location = new Point(278, 187);
-            tEmail.Name = "tEmail";
-            tEmail.Size = new Size(218, 29);
-            tEmail.TabIndex = 10;
-            // 
-            // tNombre
-            // 
-            tNombre.Location = new Point(278, 142);
-            tNombre.Name = "tNombre";
-            tNombre.Size = new Size(218, 29);
-            tNombre.TabIndex = 9;
-            // 
-            // tApellido
-            // 
-            tApellido.Location = new Point(278, 96);
-            tApellido.Name = "tApellido";
-            tApellido.Size = new Size(218, 29);
-            tApellido.TabIndex = 8;
-            // 
-            // tDNI
-            // 
-            tDNI.Location = new Point(278, 49);
-            tDNI.Name = "tDNI";
-            tDNI.Size = new Size(218, 29);
-            tDNI.TabIndex = 7;
-            // 
-            // lPassword
-            // 
-            lPassword.AutoSize = true;
-            lPassword.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lPassword.Location = new Point(127, 378);
-            lPassword.Name = "lPassword";
-            lPassword.Size = new Size(86, 20);
-            lPassword.TabIndex = 6;
-            lPassword.Text = "Contraseña:";
-            // 
-            // lNombreUsuario
-            // 
-            lNombreUsuario.AutoSize = true;
-            lNombreUsuario.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lNombreUsuario.Location = new Point(127, 330);
-            lNombreUsuario.Name = "lNombreUsuario";
-            lNombreUsuario.Size = new Size(140, 20);
-            lNombreUsuario.TabIndex = 5;
-            lNombreUsuario.Text = "Nombre de usuario:";
-            // 
-            // lEmail
-            // 
-            lEmail.AutoSize = true;
-            lEmail.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lEmail.Location = new Point(127, 191);
-            lEmail.Name = "lEmail";
-            lEmail.Size = new Size(55, 20);
-            lEmail.TabIndex = 4;
-            lEmail.Text = "E-mail:";
-            // 
-            // lTelefono
-            // 
-            lTelefono.AutoSize = true;
-            lTelefono.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lTelefono.Location = new Point(127, 236);
-            lTelefono.Name = "lTelefono";
-            lTelefono.Size = new Size(70, 20);
-            lTelefono.TabIndex = 3;
-            lTelefono.Text = "Teléfono:";
-            // 
-            // lNombre
-            // 
-            lNombre.AutoSize = true;
-            lNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lNombre.Location = new Point(127, 146);
-            lNombre.Name = "lNombre";
-            lNombre.Size = new Size(67, 20);
-            lNombre.TabIndex = 2;
-            lNombre.Text = "Nombre:";
-            // 
-            // lApellido
-            // 
-            lApellido.AutoSize = true;
-            lApellido.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lApellido.Location = new Point(127, 100);
-            lApellido.Name = "lApellido";
-            lApellido.Size = new Size(69, 20);
-            lApellido.TabIndex = 1;
-            lApellido.Text = "Apellido:";
-            // 
-            // lDNI
-            // 
-            lDNI.AutoSize = true;
-            lDNI.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lDNI.Location = new Point(127, 53);
-            lDNI.Name = "lDNI";
-            lDNI.Size = new Size(38, 20);
-            lDNI.TabIndex = 0;
-            lDNI.Text = "DNI:";
-            // 
-            // gbBuscarVend
-            // 
-            gbBuscarVend.BackColor = Color.LightSkyBlue;
-            gbBuscarVend.Controls.Add(bEliminar);
-            gbBuscarVend.Controls.Add(bModificar);
-            gbBuscarVend.Controls.Add(cbBuscar);
-            gbBuscarVend.Controls.Add(lBuscarDNI);
-            gbBuscarVend.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            gbBuscarVend.Location = new Point(57, 40);
-            gbBuscarVend.Name = "gbBuscarVend";
-            gbBuscarVend.Size = new Size(535, 71);
-            gbBuscarVend.TabIndex = 5;
-            gbBuscarVend.TabStop = false;
-            gbBuscarVend.Text = "Buscar Vendedores";
-            // 
-            // bEliminar
-            // 
-            bEliminar.Enabled = false;
-            bEliminar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bEliminar.Location = new Point(447, 31);
-            bEliminar.Name = "bEliminar";
-            bEliminar.Size = new Size(82, 27);
-            bEliminar.TabIndex = 3;
-            bEliminar.Text = "Eliminar";
-            bEliminar.UseVisualStyleBackColor = true;
-            // 
-            // bModificar
-            // 
-            bModificar.Enabled = false;
-            bModificar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bModificar.Location = new Point(359, 32);
-            bModificar.Name = "bModificar";
-            bModificar.Size = new Size(82, 27);
-            bModificar.TabIndex = 2;
-            bModificar.Text = "Modificar";
-            bModificar.UseVisualStyleBackColor = true;
-            // 
-            // cbBuscar
-            // 
-            cbBuscar.AutoCompleteMode = AutoCompleteMode.Suggest;
-            cbBuscar.FormattingEnabled = true;
-            cbBuscar.Location = new Point(140, 30);
-            cbBuscar.Name = "cbBuscar";
-            cbBuscar.Size = new Size(213, 29);
-            cbBuscar.TabIndex = 1;
-            // 
-            // lBuscarDNI
-            // 
-            lBuscarDNI.AutoSize = true;
-            lBuscarDNI.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lBuscarDNI.Location = new Point(6, 34);
-            lBuscarDNI.Name = "lBuscarDNI";
-            lBuscarDNI.Size = new Size(130, 20);
-            lBuscarDNI.TabIndex = 0;
-            lBuscarDNI.Text = "DNI del vendedor:";
+            bAgregar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bAgregar.Image = Properties.Resources.icons8_add_361;
+            bAgregar.ImageAlign = ContentAlignment.MiddleLeft;
+            bAgregar.Location = new Point(700, 29);
+            bAgregar.Name = "bAgregar";
+            bAgregar.Size = new Size(90, 38);
+            bAgregar.TabIndex = 2;
+            bAgregar.Text = "Añadir";
+            bAgregar.TextAlign = ContentAlignment.MiddleRight;
+            bAgregar.UseVisualStyleBackColor = true;
+            bAgregar.Click += bAgregar_Click;
             // 
             // ABM_Vendedores
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(bGuardar);
-            Controls.Add(gbDatos);
-            Controls.Add(gbBuscarVend);
+            Controls.Add(bAgregar);
+            Controls.Add(cbEliminados);
+            Controls.Add(dgvVendedores);
             Name = "ABM_Vendedores";
-            Size = new Size(784, 613);
-            gbDatos.ResumeLayout(false);
-            gbDatos.PerformLayout();
-            gbBuscarVend.ResumeLayout(false);
-            gbBuscarVend.PerformLayout();
+            Size = new Size(820, 600);
+            ((System.ComponentModel.ISupportInitialize)dgvVendedores).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Button bGuardar;
-        private GroupBox gbDatos;
-        private Button bLimpiar;
-        private ComboBox cbRol;
-        private Label lPerfil;
-        private TextBox tPassword;
-        private TextBox tNombreUsuario;
-        private TextBox tTelefono;
-        private TextBox tEmail;
-        private TextBox tNombre;
-        private TextBox tApellido;
-        private TextBox tDNI;
-        private Label lPassword;
-        private Label lNombreUsuario;
-        private Label lEmail;
-        private Label lTelefono;
-        private Label lNombre;
-        private Label lApellido;
-        private Label lDNI;
-        private GroupBox gbBuscarVend;
-        private Button bEliminar;
-        private Button bModificar;
-        private ComboBox cbBuscar;
-        private Label lBuscarDNI;
+        private DataGridView dgvVendedores;
+        private CheckBox cbEliminados;
+        private DataGridViewImageColumn Editar;
+        private DataGridViewImageColumn Eliminar;
+        private Button bAgregar;
     }
 }

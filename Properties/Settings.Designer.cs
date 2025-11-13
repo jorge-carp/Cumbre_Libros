@@ -26,5 +26,28 @@ namespace Cumbre_Libros.Properties
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastExportPath {
+            get {
+                return ((string)(this["LastExportPath"]));
+            }
+            set {
+                this["LastExportPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime LastExportDate {
+            get {
+                return ((global::System.DateTime)(this["LastExportDate"]));
+            }
+            set {
+                this["LastExportDate"] = value;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cumbre_Libros.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +13,13 @@ namespace Cumbre_Libros
 {
     public partial class Gerente : Form
     {
-        public Gerente(string nombre)
+        public Gerente(int ID)
         {
             InitializeComponent();
 
-            lNombre.Text = nombre;
+            using var context = new CumbreContext();
+
+            lNombre.Text = context.Usuarios.Find(ID).Nombre;
         }
 
         private void bVendedores_MouseLeave(object sender, EventArgs e)
@@ -72,7 +75,7 @@ namespace Cumbre_Libros
 
         private void bVentas_Click(object sender, EventArgs e)
         {
-            var panel_ventas = new Reporte_Ventas { Dock = DockStyle.Fill };
+            var panel_ventas = new Reporte { Dock = DockStyle.Fill };
 
             pCentral.Controls.Clear();
             pCentral.Controls.Add(panel_ventas);
